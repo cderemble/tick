@@ -1,44 +1,50 @@
 sudo: required
+language: generic
 
 branches:
   only:
     - master
 
+# Cache is irrelevant for linux/docker builds, but useful to speed up osx
 cache:
   directories:
     - $HOME/.pyenv
-    - googletest
-    - swig-3.0.10
+    - $HOME/googletest
 
 matrix:
   include:
   - os: linux
-    language: generic
-    env: TOXENV=py34
+    services: docker
+    env:
+      - DOCKER_IMAGE=vinther/tick_manylinux1_x86_64:1.2
+      - PYTOK=py34
   - os: linux
-    language: generic
-    env: TOXENV=py35
+    services: docker
+    env: 
+      - DOCKER_IMAGE=vinther/tick_manylinux1_x86_64:1.2
+      - PYTOK=py35
+  - os: linux
+    services: docker
+    env:
+      - DOCKER_IMAGE=vinther/tick_ubuntu:1.2
+      - PYTOK=py34
+  - os: linux
+    services: docker
+    env:
+      - DOCKER_IMAGE=vinther/tick_ubuntu:1.2
+      - PYTOK=py35
   - os: osx
-    language: generic
-    env: TOXENV=py34
+    env: PYTOK=py34
   - os: osx
-    language: generic
-    env: TOXENV=py35
-
-before_install:
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then source .travis_install_mac.sh; fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then source .travis_install_linux.sh; fi
+    env: PYTOK=py35
 
 install:
-  - python -m pip install --quiet -U pip
-  - python -m pip install --quiet numpy pandas
-  - python -m pip install -r requirements.txt
-  - python -m pip install sphinx pillow
-  - python -m pip install cpplint
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then source tools/travis/osx_install.sh; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then docker pull $DOCKER_IMAGE; fi
 
 script:
-  - ./build_test.sh
-  - export PYTHONPATH=${PYTHONPATH}:${TRAVIS_BUILD_DIR} && (cd doc && make doctest)
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then source tools/travis/osx_run.sh; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then docker run -v `pwd`:/io "$DOCKER_IMAGE" /io/tools/travis/docker_run.sh; fi
 
 notifications:
   slack:
