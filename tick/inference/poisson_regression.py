@@ -95,8 +95,7 @@ class PoissonRegression(LearnerGLM):
                             record_every=record_every,
                             sdca_ridge_strength=sdca_ridge_strength,
                             elastic_net_ratio=elastic_net_ratio,
-                            random_state=random_state,
-                            extra_model_kwargs=extra_model_kwargs)
+                            random_state=random_state)
 
         self.fit_intercept = fit_intercept
         self.weights = None
@@ -149,7 +148,7 @@ class PoissonRegression(LearnerGLM):
         self : `LearnerPoisReg`
             The fitted instance of the model
         """
-        LearnerGLM.fit(self, X, y)
+        return LearnerGLM.fit(self, X, y)
 
     # def decision_function(self, X):
     #     """

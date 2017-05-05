@@ -22,6 +22,3 @@ __all__ = ["LogisticRegression",
            "HawkesBasisKernels",
            "HawkesSumGaussians",
            ]
-
-
-from .poisson_regression import PoissonRegression
