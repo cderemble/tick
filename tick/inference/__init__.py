@@ -1,5 +1,6 @@
 import tick.base
 
+from .linear_regression import LinearRegression
 from .logistic_regression import LogisticRegression
 from .cox_regression import CoxRegression
 from .hawkes_expkern_fixeddecay import HawkesExpKern
@@ -10,7 +11,8 @@ from .hawkes_adm4 import HawkesADM4
 from .hawkes_basis_kernels import HawkesBasisKernels
 from .hawkes_sumgaussians import HawkesSumGaussians
 
-__all__ = ["LogisticRegression",
+__all__ = ["LinearRegression",
+           "LogisticRegression",
            "CoxRegression",
            "HawkesExpKern",
            "HawkesSumExpKern",
