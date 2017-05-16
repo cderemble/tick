@@ -8,12 +8,18 @@ from tick.optim.solver import SDCA
 
 class PoissonRegression(LearnerGLM):
     """
-    Poisson regression learner. This is the Poisson regression model, with
-    exponential link function. It supports several penalization, and only the
-    'sdca' solver is supported with this model for now.
+    This is the Poisson regression model, with exponential link function.
+    It supports several solvers and several penalizations.
+    Note that for this model, there is no way to tune
+    automatically the step of the learner. We therefore suggest to change the
+    default and
 
     Parameters
     ----------
+    step : `float`, default=1e-3
+        Step-size to be used for the solver. For Poisson regression there is no
+        way to tune it automatically. The default tuning might work, or not...
+
     C : `float`, default=1e3
         Level of penalization
 
