@@ -155,19 +155,19 @@ class PoissonRegression(LearnerGLM):
         """
         return LearnerGLM.fit(self, X, y)
 
-    def score(self, X, y):
+    def loglik(self, X, y):
         """Compute the minus log-likelihood of the model, using the given
         features matrix and labels, with the intercept and model weights
         currently fitted in the object.
+        Minus log-likelihood is computed, so that smaller is better.
 
         Parameters
         ----------
         X : `np.ndarray` or `scipy.sparse.csr_matrix`,, shape=(n_samples, n_features)
-            Training vector, where n_samples in the number of samples and
-            n_features is the number of features
+            Features matrix
 
         y : `np.array`, shape=(n_samples,)
-            Target vector relative to X
+            Labels vector relative to X
 
         Returns
         -------
@@ -185,80 +185,43 @@ class PoissonRegression(LearnerGLM):
             if fit_intercept:
                 coeffs = np.append(coeffs, self.intercept)
             return model.fit(X, y).loss(coeffs)
-        # Compute the value of the
 
-    # def decision_function(self, X):
-    #     """
-    #     Predict scores for given samples
-    #
-    #     The confidence score for a sample is the signed distance of that
-    #     sample to the hyperplane.
-    #
-    #     Parameters
-    #     ----------
-    #     X : `np.ndarray` or `scipy.sparse.csr_matrix`, shape=(n_samples, n_features)
-    #         Samples.
-    #
-    #     Returns
-    #     -------
-    #     output : `np.array`, shape=(n_samples,)
-    #         Confidence scores.
-    #     """
-    #     if not self._fitted:
-    #         raise ValueError("You must call ``fit`` before")
-    #     else:
-    #         X = self._safe_array(X)
-    #         z = X.dot(self.weights)
-    #         if self.intercept:
-    #             z += self.intercept
-    #         return z
-
-    def predict(self, X):
-        """Predict class for given samples
+    def decision_function(self, X):
+        """Decision function for given samples. This is simply given by
+        the predicted means of each sample.
+        Predicted mean in this model for a features vector x is simply given by
+        exp(x.dot(weights) + intercept)
 
         Parameters
         ----------
         X : `np.ndarray` or `scipy.sparse.csr_matrix`, shape=(n_samples, n_features)
-            Samples.
+            Features matrix
 
         Returns
         -------
         output : `np.array`, shape=(n_samples,)
-            Returns predicted values.
+            Value of the decision function of each sample points
         """
-        pass
+        if not self._fitted:
+            raise ValueError("You must call ``fit`` before")
+        else:
+            X = self._safe_array(X)
+            z = X.dot(self.weights)
+            if self.intercept:
+                z += self.intercept
+            return np.exp(z)
 
-        # TODO
-        # scores = self.decision_function(X)
-        # indices = (scores > 0).astype(np.int)
-        # return self.classes[indices]
+    def predict(self, X):
+        """Predict label for given samples
 
-    # def predict_proba(self, X):
-    #     """
-    #     Probability estimates.
-    #
-    #     The returned estimates for all classes are ordered by the
-    #     label of classes.
-    #
-    #     Parameters
-    #     ----------
-    #     X : `np.ndarray` or `scipy.sparse.csr_matrix`, shape=(n_samples, n_features)
-    #         Input features matrix
-    #
-    #     Returns
-    #     -------
-    #     output : `np.ndarray`, shape=(n_samples, 2)
-    #         Returns the probability of the sample for each class
-    #         in the model in the same order as in `self.classes`
-    #     """
-    #     if not self._fitted:
-    #         raise ValueError("You must call ``fit`` before")
-    #     else:
-    #         score = self.decision_function(X)
-    #         n_samples = score.shape[0]
-    #         probs_class_1 = np.empty((n_samples,))
-    #         ModelLogReg.sigmoid(score, probs_class_1)
-    #         probs = np.empty((n_samples, 2))
-    #         probs[:, 1] = probs_class_1
-    #         probs[:, 0] = 1. - probs_class_1
-    #         return probs
+        Parameters
+        ----------
+        X : `np.ndarray` or `scipy.sparse.csr_matrix`, shape=(n_samples, n_features)
+            Features matrix
+
+        Returns
+        -------
+        output : `np.array`, shape=(n_samples,)
+            Returns predicted labels
+        """
+        return np.rint(self.decision_function(X))
