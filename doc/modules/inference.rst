@@ -43,6 +43,7 @@ Classes
    :template: class.rst
 
    inference.LogisticRegression
+   inference.PoissonRegression
 
 Example
 ^^^^^^^

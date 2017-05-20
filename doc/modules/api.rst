@@ -32,6 +32,7 @@ Generalized linear models
    :template: class.rst
 
    inference.LogisticRegression
+   inference.PoissonRegression
 
 Survival Analysis
 -----------------

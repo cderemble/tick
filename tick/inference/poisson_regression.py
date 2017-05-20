@@ -11,8 +11,8 @@ class PoissonRegression(LearnerGLM):
     This is the Poisson regression model, with exponential link function.
     It supports several solvers and several penalizations.
     Note that for this model, there is no way to tune
-    automatically the step of the learner. We therefore suggest to change the
-    default and
+    automatically the `step` of this learner. Thus, the default for `step`
+    might work, or not, so that several values should be tried out.
 
     Parameters
     ----------
@@ -35,7 +35,7 @@ class PoissonRegression(LearnerGLM):
     warm_start : `bool`, default=False
         If true, learning will start from the last reached solution
 
-    tol : `float`, default=1e-5
+    tol : `float`, default=1e-6
         The tolerance of the solver (iterations stop when the stopping
         criterion is below it). By default the solver does ``max_iter``
         iterations
@@ -51,7 +51,7 @@ class PoissonRegression(LearnerGLM):
         Print history information when ``n_iter`` (iteration number) is
         a multiple of ``print_every``
 
-    record_every : `int`, default=10
+    record_every : `int`, default=1
         Record history information when ``n_iter`` (iteration number) is
         a multiple of ``record_every``
 
@@ -88,12 +88,10 @@ class PoissonRegression(LearnerGLM):
         "_actual_kwargs": {"writable": False}
     }
 
-    # TODO: step is mandatory for this solver, for BFGS does not need one...
-
     @actual_kwargs
     def __init__(self, step=1e-3, fit_intercept=True, penalty='l2', C=1e3,
                  tol=1e-5, max_iter=100, solver='svrg', verbose=False,
-                 warm_start=False, print_every=10, record_every=10,
+                 warm_start=False, print_every=10, record_every=1,
                  elastic_net_ratio=0.95, random_state=None):
 
         self._actual_kwargs = PoissonRegression.__init__.actual_kwargs
