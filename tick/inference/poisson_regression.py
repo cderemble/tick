@@ -11,7 +11,7 @@ class PoissonRegression(LearnerGLM):
     This is the Poisson regression model, with exponential link function.
     It supports several solvers and several penalizations.
     Note that for this model, there is no way to tune
-    automatically the `step` of this learner. Thus, the default for `step`
+    automatically the `step` of the solver. Thus, the default for `step`
     might work, or not, so that several values should be tried out.
 
     Parameters
@@ -154,6 +154,38 @@ class PoissonRegression(LearnerGLM):
             The fitted instance of the model
         """
         return LearnerGLM.fit(self, X, y)
+
+    def score(self, X, y):
+        """Compute the minus log-likelihood of the model, using the given
+        features matrix and labels, with the intercept and model weights
+        currently fitted in the object.
+
+        Parameters
+        ----------
+        X : `np.ndarray` or `scipy.sparse.csr_matrix`,, shape=(n_samples, n_features)
+            Training vector, where n_samples in the number of samples and
+            n_features is the number of features
+
+        y : `np.array`, shape=(n_samples,)
+            Target vector relative to X
+
+        Returns
+        -------
+        output : `float`
+            Value of the minus log-likelihood
+        """
+        if not self._fitted:
+            raise ValueError("You must call ``fit`` before")
+        else:
+            X = self._safe_array(X)
+            y = self._safe_array(y)
+            fit_intercept = self.fit_intercept
+            model = self._construct_model_obj(fit_intercept)
+            coeffs = self.weights
+            if fit_intercept:
+                coeffs = np.append(coeffs, self.intercept)
+            return model.fit(X, y).loss(coeffs)
+        # Compute the value of the
 
     # def decision_function(self, X):
     #     """
