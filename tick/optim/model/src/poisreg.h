@@ -43,7 +43,6 @@ class ModelPoisReg : public ModelGeneralizedLinear {
   virtual void set_link_type(const LinkType link_type) {
     this->link_type = link_type;
   }
-
 };
 
 #endif  // TICK_OPTIM_MODEL_SRC_POISREG_H_

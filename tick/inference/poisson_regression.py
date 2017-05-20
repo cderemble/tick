@@ -108,34 +108,6 @@ class PoissonRegression(LearnerGLM):
     def _construct_model_obj(self, fit_intercept=True):
         return ModelPoisReg(fit_intercept=fit_intercept, link='exponential')
 
-
-    # def _encode_labels_vector(self, labels):
-    #     """Encodes labels values to canonical labels -1 and 1
-    #
-    #     Parameters
-    #     ----------
-    #     labels : `np.array`, shape=(n_samples,)
-    #         Labels vector
-    #
-    #     Returns
-    #     -------
-    #     output : `np.array`, shape=(n_samples,)
-    #         Encoded labels vector which takes values -1 and 1
-    #     """
-    #     # If it is already in the canonical shape return it
-    #     # Additional check as if self.classes.dtype is not a number it raises
-    #     # a warning
-    #     if np.issubdtype(self.classes.dtype, np.number) and \
-    #             np.array_equal(self.classes, [-1, 1]):
-    #         return labels
-    #
-    #     mapper = {
-    #         self.classes[0]: -1.,
-    #         self.classes[1]: 1.
-    #     }
-    #     y = np.vectorize(mapper.get)(labels)
-    #     return y
-
     def fit(self, X: object, y: np.array):
         """Fit the model according to the given training data.
 
