@@ -3,7 +3,7 @@ import numpy as np
 from tick.base import actual_kwargs
 from tick.inference.base import LearnerGLM
 from tick.optim.model import ModelPoisReg
-from tick.optim.solver import SDCA
+from tick.optim.solver import GD, AGD, SGD, BFGS, SVRG, AdaGrad
 
 
 class PoissonRegression(LearnerGLM):
@@ -25,6 +25,9 @@ class PoissonRegression(LearnerGLM):
 
     penalty : {'l1', 'l2', 'elasticnet', 'tv'}, default='l2'
         The penalization to use. Default is ridge penalization
+
+    solver : {'gd', 'agd', 'bfgs', 'svrg', 'sgd'}, default='svrg'
+        The name of the solver to use
 
     fit_intercept : `bool`, default=True
         If `True`, include an intercept in the model
@@ -52,11 +55,6 @@ class PoissonRegression(LearnerGLM):
         Record history information when ``n_iter`` (iteration number) is
         a multiple of ``record_every``
 
-    sdca_ridge_strength : `float`, default=1e-3
-        It controls the strength of the additional ridge penalization, mandatory
-        for the 'sdca' solver, which is the only choice (for now) for the
-        Poisson regression model
-
     elastic_net_ratio : `float`, default=0.95
         Ratio of elastic net mixing parameter with 0 <= ratio <= 1.
         For ratio = 0 this is ridge (L2 squared) regularization
@@ -79,36 +77,39 @@ class PoissonRegression(LearnerGLM):
     """
 
     _solvers = {
-        'sdca': SDCA
+        'gd': GD,
+        'agd': AGD,
+        'sgd': SGD,
+        'svrg': SVRG,
+        'bfgs': BFGS,
     }
 
     _attrinfos = {
         "_actual_kwargs": {"writable": False}
     }
 
+    # TODO: step is mandatory for this solver, for BFGS does not need one...
+
     @actual_kwargs
-    def __init__(self, fit_intercept=True, penalty='l2', C=1e3, tol=1e-5, max_iter=100,
-                 verbose=False, warm_start=False, print_every=10, record_every=10,
-                 sdca_ridge_strength=1e-3, elastic_net_ratio=0.95, random_state=None):
+    def __init__(self, step=1e-3, fit_intercept=True, penalty='l2', C=1e3,
+                 tol=1e-5, max_iter=100, solver='svrg', verbose=False,
+                 warm_start=False, print_every=10, record_every=10,
+                 elastic_net_ratio=0.95, random_state=None):
 
         self._actual_kwargs = PoissonRegression.__init__.actual_kwargs
+        # extra_model_kwargs = {'fit_intercept': fit_intercept}
 
-        extra_model_kwargs = {'fit_intercept': fit_intercept}
-
-        LearnerGLM.__init__(self, penalty=penalty, C=C, solver='sdca', tol=tol,
+        LearnerGLM.__init__(self, step=step, fit_intercept=fit_intercept,
+                            penalty=penalty, C=C, solver=solver, tol=tol,
                             max_iter=max_iter, verbose=verbose,
                             warm_start=warm_start, print_every=print_every,
                             record_every=record_every,
-                            sdca_ridge_strength=sdca_ridge_strength,
                             elastic_net_ratio=elastic_net_ratio,
                             random_state=random_state)
 
-        self.fit_intercept = fit_intercept
-        self.weights = None
-        self.intercept = None
-
     def _construct_model_obj(self, fit_intercept=True):
         return ModelPoisReg(fit_intercept=fit_intercept, link='exponential')
+
 
     # def _encode_labels_vector(self, labels):
     #     """Encodes labels values to canonical labels -1 and 1
@@ -151,7 +152,7 @@ class PoissonRegression(LearnerGLM):
 
         Returns
         -------
-        self : `LearnerPoisReg`
+        self : `PoissonRegression`
             The fitted instance of the model
         """
         return LearnerGLM.fit(self, X, y)
