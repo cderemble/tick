@@ -10,10 +10,6 @@ from tick.simulation import SimuPoisReg, weights_sparse_gauss
 from tick.inference import PoissonRegression
 
 
-# solvers = ['gd', 'agd', 'svrg']
-# penalties = ['none', 'l2', 'l1', 'tv', 'elasticnet']
-
-
 class Test(InferenceTest):
     def setUp(self):
         self.float_1 = 5.23e-4
@@ -34,7 +30,7 @@ class Test(InferenceTest):
         else:
             intercept0 = None
         X, y = SimuPoisReg(weights0, intercept0, n_samples=n_samples,
-                           seed=123).simulate()
+                           seed=123, verbose=False).simulate()
         X, y = SimuPoisReg(weights0, intercept0, n_samples=n_samples,
                           verbose=False).simulate()
         return X, y, weights0, intercept0
@@ -80,10 +76,7 @@ class Test(InferenceTest):
             solver_kwargs = {'solver': solver, 'max_iter': 2,
                              'fit_intercept': fit_intercept,
                              'warm_start': True, 'tol': 0}
-            if solver == 'bfgs':
-                learner = PoissonRegression(step=None, **solver_kwargs)
-            else:
-                learner = PoissonRegression(step=1e-3, **solver_kwargs)
+            learner = PoissonRegression(**solver_kwargs)
             learner.fit(X, y)
             if fit_intercept:
                 coeffs_1 = np.hstack((learner.weights, learner.intercept))
@@ -111,8 +104,7 @@ class Test(InferenceTest):
         # solver
         solver_class_map = PoissonRegression._solvers
         for solver in PoissonRegression._solvers.keys():
-            learner = PoissonRegression(solver=solver,
-                                        **Test.specific_solver_kwargs(solver))
+            learner = PoissonRegression(solver=solver)
             solver_class = solver_class_map[solver]
             self.assertTrue(isinstance(learner._solver_obj, solver_class))
 
@@ -267,30 +259,37 @@ class Test(InferenceTest):
     def test_PoissonRegression_solver_step(self):
         """...Test LogisticRegression setting of step parameter of solver
         """
-        # TODO: add a test for the step parameter, check in a notebook
         for solver in PoissonRegression._solvers.keys():
-            learner = PoissonRegression(solver=solver, step=self.float_1,
-                                       **Test.specific_solver_kwargs(solver))
-            self.assertEqual(learner.step, self.float_1)
-            self.assertEqual(learner._solver_obj.step, self.float_1)
-            learner.step = self.float_2
-            self.assertEqual(learner.step, self.float_2)
-            self.assertEqual(learner._solver_obj.step, self.float_2)
+            if solver == 'bfgs':
+                learner = PoissonRegression(solver=solver)
+                self.assertIsNone(learner.step)
+                learner = PoissonRegression(solver=solver, step=self.float_1)
+                self.assertIsNone(learner.step)
+                msg = '^Solver "bfgs" has no settable step$'
+                with self.assertWarnsRegex(RuntimeWarning, msg):
+                    learner.step = self.float_2
+                    self.assertIsNone(learner.step)
+            else:
+                learner = PoissonRegression(solver=solver, step=self.float_1)
+                self.assertEqual(learner.step, self.float_1)
+                self.assertEqual(learner._solver_obj.step, self.float_1)
+                learner.step = self.float_2
+                self.assertEqual(learner.step, self.float_2)
+                self.assertEqual(learner._solver_obj.step, self.float_2)
 
     def test_PoissonRegression_solver_random_state(self):
-        """...Test LogisticRegression setting of random_state parameter of solver
+        """...Test PoissonRegression setting of random_state parameter of solver
         """
         for solver in PoissonRegression._solvers.keys():
-            if solver in ['agd', 'gd']:
+            if solver in ['agd', 'gd', 'bfgs']:
                 msg = '^Solver "%s" has no settable random_state$' % solver
                 with self.assertWarnsRegex(RuntimeWarning, msg):
-                    learner = PoissonRegression(solver=solver, random_state=1,
-                                                **Test.specific_solver_kwargs(
-                                                solver))
+                    learner = PoissonRegression(solver=solver, random_state=1)
+
                     self.assertIsNone(learner.random_state)
             else:
-                learner = PoissonRegression(solver=solver, random_state=self.int_1,
-                                            **Test.specific_solver_kwargs(solver))
+                learner = PoissonRegression(solver=solver,
+                                            random_state=self.int_1)
                 self.assertEqual(learner.random_state, self.int_1)
                 self.assertEqual(learner._solver_obj.seed, self.int_1)
 
@@ -301,8 +300,7 @@ class Test(InferenceTest):
 
             msg = '^random_state is readonly in PoissonRegression$'
             with self.assertRaisesRegex(AttributeError, msg):
-                learner = PoissonRegression(solver=solver,
-                                            **Test.specific_solver_kwargs(solver))
+                learner = PoissonRegression(solver=solver)
                 learner.random_state = self.int_2
 
     def test_safe_array_cast(self):

@@ -95,7 +95,11 @@ class PoissonRegression(LearnerGLM):
                  elastic_net_ratio=0.95, random_state=None):
 
         self._actual_kwargs = PoissonRegression.__init__.actual_kwargs
-        # extra_model_kwargs = {'fit_intercept': fit_intercept}
+
+        # If 'bfgs' is specified then there is no step. Solver can't be changed
+        # after creation of the objected, so hard-replacing step is okay.
+        if solver == 'bfgs':
+            step = None
 
         LearnerGLM.__init__(self, step=step, fit_intercept=fit_intercept,
                             penalty=penalty, C=C, solver=solver, tol=tol,
