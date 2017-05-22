@@ -11,6 +11,7 @@ from .prox_slope import ProxSlope
 from .prox_elasticnet import ProxElasticNet
 from .prox_multi import ProxMulti
 from .prox_equality import ProxEquality
+from .prox_binarsity import ProxBinarsity
 
 
 __all__ = ["ProxZero",
@@ -23,4 +24,5 @@ __all__ = ["ProxZero",
            "ProxSlope",
            "ProxElasticNet",
            "ProxMulti",
-           "ProxEquality"]
+           "ProxEquality",
+           "ProxBinarsity"]

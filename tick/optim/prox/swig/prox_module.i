@@ -15,6 +15,7 @@
 %shared_ptr(ProxSlope);
 %shared_ptr(ProxMulti);
 %shared_ptr(ProxEquality);
+%shared_ptr(ProxBinarsity);
 
 %{
 #include "tick_python.h"
@@ -45,3 +46,5 @@
 %include prox_multi.i
 
 %include prox_equality.i
+
+%include prox_binarsity.i

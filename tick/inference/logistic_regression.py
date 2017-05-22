@@ -15,7 +15,7 @@ class LogisticRegression(LearnerGLM):
     C : `float`, default=1e3
         Level of penalization
 
-    penalty : {'l1', 'l2', 'elasticnet', 'tv', 'none'}, default='l2'
+    penalty : {'l1', 'l2', 'elasticnet', 'tv', 'none', 'binarsity'}, default='l2'
         The penalization to use. Default is ridge penalization
 
     solver : {'gd', 'agd', 'bfgs', 'svrg', 'sdca', 'sgd'}, default='svrg'
@@ -51,6 +51,12 @@ class LogisticRegression(LearnerGLM):
         Record history information when ``n_iter`` (iteration number) is
         a multiple of ``record_every``
 
+    random_state : `int` seed, RandomState instance, or None (default)
+        The seed that will be used by stochastic solvers. Used in 'sgd',
+        'svrg', and 'sdca' solvers
+        
+    Other Parameters
+    ----------------
     sdca_ridge_strength : `float`, default=1e-3
         It controls the strength of the additional ridge penalization. Used in
         'sdca' solver
@@ -62,10 +68,12 @@ class LogisticRegression(LearnerGLM):
         For 0 < ratio < 1, the regularization is a linear combination
         of L1 and L2.
         Used in 'elasticnet' penalty
-
-    random_state : `int` seed, RandomState instance, or None (default)
-        The seed that will be used by stochastic solvers. Used in 'sgd',
-        'svrg', and 'sdca' solvers
+        
+    blocks_start : `numpy.array`, shape=(n_features,), default=None
+        The indices of the first column of each binarized feature blocks
+        
+    blocks_length : `numpy.array`, shape=(n_features,), default=None
+        The length of each binarized feature blocks
 
     Attributes
     ----------
@@ -87,7 +95,8 @@ class LogisticRegression(LearnerGLM):
                  solver="svrg", step=None, tol=1e-5, max_iter=100,
                  verbose=False, warm_start=False,
                  print_every=10, record_every=10, sdca_ridge_strength=1e-3,
-                 elastic_net_ratio=0.95, random_state=None):
+                 elastic_net_ratio=0.95, random_state=None, blocks_start=None,
+                 blocks_length=None):
 
         self._actual_kwargs = LogisticRegression.__init__.actual_kwargs
         LearnerGLM.__init__(self, fit_intercept=fit_intercept,
@@ -98,7 +107,9 @@ class LogisticRegression(LearnerGLM):
                             record_every=record_every,
                             sdca_ridge_strength=sdca_ridge_strength,
                             elastic_net_ratio=elastic_net_ratio,
-                            random_state=random_state)
+                            random_state=random_state,
+                            blocks_start=blocks_start,
+                            blocks_length=blocks_length)
 
         self.classes = None
 

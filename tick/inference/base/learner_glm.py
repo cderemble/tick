@@ -17,7 +17,7 @@ class LearnerGLM(LearnerOptim):
     C : `float`, default=1e3
         Level of penalization
 
-    penalty : 'none', 'l1', 'l2', 'elasticnet', 'tv', default='l2'
+    penalty : 'none', 'l1', 'l2', 'elasticnet', 'tv', 'binarsity', default='l2'
         The penalization to use. Default 'l2', namely is ridge penalization.
 
     solver : 'gd', 'agd', 'bfgs', 'svrg', 'sdca'
@@ -53,21 +53,29 @@ class LearnerGLM(LearnerOptim):
         Record history information when ``n_iter`` (iteration number) is
         a multiple of ``record_every``
 
+    random_state : int seed, RandomState instance, or None (default)
+        The seed that will be used by stochastic solvers. Used in 'sgd',
+        'svrg', and 'sdca' solvers
+        
+    Other Parameters
+    ----------------
     sdca_ridge_strength : `float`, default=1e-3
         It controls the strength of the additional ridge penalization. Used in
         'sdca' solver
 
     elastic_net_ratio : `float`, default=0.95
         Ratio of elastic net mixing parameter with 0 <= ratio <= 1.
-        For ratio = 0 this is ridge (L2) regularization
+        For ratio = 0 this is ridge (L2 squared) regularization
         For ratio = 1 this is lasso (L1) regularization
         For 0 < ratio < 1, the regularization is a linear combination
         of L1 and L2.
         Used in 'elasticnet' penalty
-
-    random_state : int seed, RandomState instance, or None (default)
-        The seed that will be used by stochastic solvers. Used in 'sgd',
-        'svrg', and 'sdca' solvers
+        
+    blocks_start : `numpy.array`, shape=(n_features,), default=None
+        The indices of the first column of each binarized feature blocks
+        
+    blocks_length : `numpy.array`, shape=(n_features,), default=None
+        The length of each binarized feature blocks
 
     Attributes
     ----------
@@ -94,7 +102,8 @@ class LearnerGLM(LearnerOptim):
                  solver="svrg", step=None, tol=1e-5, max_iter=100,
                  verbose=True, warm_start=False, print_every=10,
                  record_every=10, sdca_ridge_strength=1e-3,
-                 elastic_net_ratio=0.95, random_state=None):
+                 elastic_net_ratio=0.95, random_state=None,
+                 blocks_start=None, blocks_length=None):
 
         extra_model_kwargs = {'fit_intercept': fit_intercept}
 
@@ -106,7 +115,9 @@ class LearnerGLM(LearnerOptim):
                               sdca_ridge_strength=sdca_ridge_strength,
                               elastic_net_ratio=elastic_net_ratio,
                               random_state=random_state,
-                              extra_model_kwargs=extra_model_kwargs)
+                              extra_model_kwargs=extra_model_kwargs,
+                              blocks_start=blocks_start,
+                              blocks_length=blocks_length)
 
         self.fit_intercept = fit_intercept
         self.weights = None

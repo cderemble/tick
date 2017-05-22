@@ -5,13 +5,15 @@ import numpy as np
 from sklearn.metrics.ranking import roc_auc_score
 
 from tick.inference.tests.inference import InferenceTest
-from tick.optim.prox import ProxZero, ProxL1, ProxL2Sq, ProxElasticNet, ProxTV
+from tick.optim.prox import ProxZero, ProxL1, ProxL2Sq, ProxElasticNet, ProxTV, \
+    ProxBinarsity
 from tick.optim.solver import AGD, GD, BFGS, SGD, SVRG, SDCA
 from tick.simulation import SimuLogReg, weights_sparse_gauss
 from tick.inference import LogisticRegression
+from tick.preprocessing.features_binarizer import FeaturesBinarizer
 
 solvers = ['gd', 'agd', 'sgd', 'sdca', 'bfgs', 'svrg']
-penalties = ['none', 'l2', 'l1', 'tv', 'elasticnet']
+penalties = ['none', 'l2', 'l1', 'tv', 'elasticnet', 'binarsity']
 
 
 class Test(InferenceTest):
@@ -38,10 +40,19 @@ class Test(InferenceTest):
         """...Test LogisticRegression fit with different solvers and penalties
         """
         sto_seed = 179312
-        X, y = Test.get_train_data()
+        features, y = Test.get_train_data()
 
         for fit_intercept in [True, False]:
             for penalty in penalties:
+
+                if penalty == 'binarsity':
+                    # binarize features
+                    n_cuts = 3
+                    binarizer = FeaturesBinarizer(n_cuts=n_cuts)
+                    X = binarizer.fit_transform(features)
+                else:
+                    X = features
+
                 for solver in solvers:
                     solver_kwargs = {'penalty': penalty, 'tol': 1e-5,
                                      'solver': solver, 'verbose': False,
@@ -49,7 +60,12 @@ class Test(InferenceTest):
                                      'fit_intercept': fit_intercept}
 
                     if penalty != 'none':
-                        solver_kwargs['C'] = 50
+                        solver_kwargs['C'] = 60
+
+                    if penalty == 'binarsity':
+                        solver_kwargs[
+                            'blocks_start'] = binarizer.feature_indices[:-1, ]
+                        solver_kwargs['blocks_length'] = binarizer.n_values
 
                     if solver == 'sdca':
                         solver_kwargs['sdca_ridge_strength'] = 2e-2
@@ -144,14 +160,16 @@ class Test(InferenceTest):
 
         # prox
         prox_class_map = {'none': ProxZero, 'l1': ProxL1, 'l2': ProxL2Sq,
-                          'elasticnet': ProxElasticNet, 'tv': ProxTV}
+                          'elasticnet': ProxElasticNet, 'tv': ProxTV,
+                          'binarsity': ProxBinarsity}
         for penalty in penalties:
-            learner = LogisticRegression(penalty=penalty)
+            learner = LogisticRegression(penalty=penalty, blocks_start=[0],
+                                         blocks_length=[0])
             prox_class = prox_class_map[penalty]
             self.assertTrue(isinstance(learner._prox_obj, prox_class))
 
-        msg = '^``penalty`` must be one of elasticnet, l1, l2, none, tv, ' \
-              'got wrong_name$'
+        msg = '^``penalty`` must be one of binarsity, elasticnet, l1, l2, none, ' \
+              'tv, got wrong_name$'
         with self.assertRaisesRegex(ValueError, msg):
             LogisticRegression(penalty='wrong_name')
 
@@ -179,7 +197,9 @@ class Test(InferenceTest):
 
         for penalty in penalties:
             if penalty != 'none':
-                learner = LogisticRegression(penalty=penalty, C=self.float_1)
+                learner = LogisticRegression(penalty=penalty, C=self.float_1,
+                                             blocks_start=[0],
+                                             blocks_length=[0])
                 self.assertEqual(learner.C, self.float_1)
                 self.assertEqual(learner._prox_obj.strength, 1. / self.float_1)
                 learner.C = self.float_2
@@ -188,14 +208,17 @@ class Test(InferenceTest):
 
                 msg = '^``C`` must be positive, got -1$'
                 with self.assertRaisesRegex(ValueError, msg):
-                    LogisticRegression(penalty=penalty, C=-1)
+                    LogisticRegression(penalty=penalty, C=-1, blocks_start=[0],
+                                       blocks_length=[0])
 
             else:
                 msg = '^You cannot set C for penalty "%s"$' % penalty
                 with self.assertWarnsRegex(RuntimeWarning, msg):
-                    LogisticRegression(penalty=penalty, C=self.float_1)
+                    LogisticRegression(penalty=penalty, C=self.float_1,
+                                       blocks_start=[0], blocks_length=[0])
 
-                learner = LogisticRegression(penalty=penalty)
+                learner = LogisticRegression(penalty=penalty, blocks_start=[0],
+                                             blocks_length=[0])
                 with self.assertWarnsRegex(RuntimeWarning, msg):
                     learner.C = self.float_1
 
@@ -213,7 +236,9 @@ class Test(InferenceTest):
             if penalty == 'elasticnet':
 
                 learner = LogisticRegression(penalty=penalty, C=self.float_1,
-                                             elastic_net_ratio=ratio_1)
+                                             elastic_net_ratio=ratio_1,
+                                             blocks_start=[0],
+                                             blocks_length=[0])
                 self.assertEqual(learner.C, self.float_1)
                 self.assertEqual(learner.elastic_net_ratio, ratio_1)
                 self.assertEqual(learner._prox_obj.strength, 1. / self.float_1)
@@ -228,9 +253,11 @@ class Test(InferenceTest):
                 msg = '^Penalty "%s" has no elastic_net_ratio attribute$$' % \
                       penalty
                 with self.assertWarnsRegex(RuntimeWarning, msg):
-                    LogisticRegression(penalty=penalty, elastic_net_ratio=0.8)
+                    LogisticRegression(penalty=penalty, elastic_net_ratio=0.8,
+                                       blocks_start=[0], blocks_length=[0])
 
-                learner = LogisticRegression(penalty=penalty)
+                learner = LogisticRegression(penalty=penalty, blocks_start=[0],
+                                             blocks_length=[0])
                 with self.assertWarnsRegex(RuntimeWarning, msg):
                     learner.elastic_net_ratio = ratio_1
 
@@ -300,11 +327,12 @@ class Test(InferenceTest):
                 with self.assertWarnsRegex(RuntimeWarning, msg):
                     learner = LogisticRegression(solver=solver, step=1,
                                                  **Test.specific_solver_kwargs(
-                                                solver))
+                                                     solver))
                     self.assertIsNone(learner.step)
             else:
                 learner = LogisticRegression(solver=solver, step=self.float_1,
-                                             **Test.specific_solver_kwargs(solver))
+                                             **Test.specific_solver_kwargs(
+                                                 solver))
                 self.assertEqual(learner.step, self.float_1)
                 self.assertEqual(learner._solver_obj.step, self.float_1)
                 learner.step = self.float_2
@@ -326,11 +354,13 @@ class Test(InferenceTest):
                 with self.assertWarnsRegex(RuntimeWarning, msg):
                     learner = LogisticRegression(solver=solver, random_state=1,
                                                  **Test.specific_solver_kwargs(
-                                                solver))
+                                                     solver))
                     self.assertIsNone(learner.random_state)
             else:
-                learner = LogisticRegression(solver=solver, random_state=self.int_1,
-                                             **Test.specific_solver_kwargs(solver))
+                learner = LogisticRegression(solver=solver,
+                                             random_state=self.int_1,
+                                             **Test.specific_solver_kwargs(
+                                                 solver))
                 self.assertEqual(learner.random_state, self.int_1)
                 self.assertEqual(learner._solver_obj.seed, self.int_1)
 
@@ -342,7 +372,8 @@ class Test(InferenceTest):
             msg = '^random_state is readonly in LogisticRegression$'
             with self.assertRaisesRegex(AttributeError, msg):
                 learner = LogisticRegression(solver=solver,
-                                             **Test.specific_solver_kwargs(solver))
+                                             **Test.specific_solver_kwargs(
+                                                 solver))
                 learner.random_state = self.int_2
 
     def test_LogisticRegression_solver_sdca_ridge_strength(self):
@@ -353,7 +384,8 @@ class Test(InferenceTest):
             if solver == 'sdca':
                 learner = LogisticRegression(solver=solver,
                                              sdca_ridge_strength=self.float_1,
-                                             **Test.specific_solver_kwargs(solver))
+                                             **Test.specific_solver_kwargs(
+                                                 solver))
                 self.assertEqual(learner.sdca_ridge_strength, self.float_1)
                 self.assertEqual(learner._solver_obj._solver.get_l_l2sq(),
                                  self.float_1)
@@ -371,7 +403,8 @@ class Test(InferenceTest):
                                        **Test.specific_solver_kwargs(solver))
 
                 learner = LogisticRegression(solver=solver,
-                                             **Test.specific_solver_kwargs(solver))
+                                             **Test.specific_solver_kwargs(
+                                                 solver))
                 with self.assertWarnsRegex(RuntimeWarning, msg):
                     learner.sdca_ridge_strength = self.float_1
 
@@ -388,7 +421,8 @@ class Test(InferenceTest):
         with self.assertWarnsRegex(RuntimeWarning, msg):
             LogisticRegression._safe_array(self.X[::2])
 
-        np.testing.assert_array_equal(self.X, LogisticRegression._safe_array(self.X))
+        np.testing.assert_array_equal(self.X,
+                                      LogisticRegression._safe_array(self.X))
 
     def test_labels_encoding(self):
         """...Test that class encoding is well done for LogReg
