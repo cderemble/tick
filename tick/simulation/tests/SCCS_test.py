@@ -39,5 +39,41 @@ class Test(unittest.TestCase):
             np.testing.assert_array_equal(expect_lab[i], out_lab[i])
             self.assertGreater(expect_lab[i].sum(), 0)
 
+    def test_simulation(self):
+        def run_tests(n_samples, n_features, sparse, exposure_type,
+                     distribution, first_tick_only, censoring):
+            n_intervals = 5
+            n_lags = 2
+            sim = SimuSCCS(n_samples, n_intervals, n_features, n_lags, sparse,
+                           exposure_type, distribution, first_tick_only,
+                           censoring, seed=42, verbose=False)
+            X, y, c, coeffs = sim.simulate()
+            self.assertEqual(len(X), n_samples)
+            self.assertEqual(len(y), n_samples)
+            self.assertEqual(X[0].shape, (n_intervals, n_features))
+            self.assertEqual(y[0].shape, (n_intervals,))
+            self.assertEqual(c.shape, (n_samples,))
+            self.assertEqual(coeffs.shape, (n_features * (n_lags + 1),))
+
+        n_samples = [1, 100]
+        n_features = [1, 3]
+        sparse = [True, False]
+        exposure_type = ["infinite", "short"]
+        distribution = ["multinomial", "poisson"]
+        first_tick_only = [True, False]
+        censoring = [True, False]
+        for n in n_samples:
+            for n_feat in n_features:
+                for e in exposure_type:
+                    for d in distribution:
+                        for f in first_tick_only:
+                            for c in censoring:
+                                if e == "short":
+                                    for s in sparse:
+                                        run_tests(n, n_feat, s, e, d, f, c)
+                                else:
+                                    run_tests(n, n_feat, True, e, d, f, c)
+
+
 if __name__ == '__main__':
     unittest.main()
