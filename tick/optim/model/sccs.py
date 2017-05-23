@@ -87,7 +87,7 @@ class ModelSCCS(ModelFirstOrder, ModelLipschitz):
 
         labels : List[{1d array, csr matrix of shape (n_intervals,)]
             The labels vector
-            
+
         censoring : 1d array of shape (n_samples,)
             The censoring vector
 
