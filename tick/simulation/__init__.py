@@ -16,7 +16,7 @@ from .hawkes import SimuHawkes
 from .hawkes_exp_kernels import SimuHawkesExpKernels
 from .hawkes_sumexp_kernels import SimuHawkesSumExpKernels
 from .hawkes_multi import SimuHawkesMulti
-from .SCCS import SimuSCCS
+from .sccs import SimuSCCS
 
 __all__ = ["SimuLinReg",
            "SimuLogReg",

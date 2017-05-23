@@ -1,4 +1,3 @@
-"""AR-SCCS simulations utility."""
 from operator import itemgetter
 import numpy as np
 import scipy.sparse as sps
@@ -6,6 +5,7 @@ from scipy.sparse import csr_matrix
 from .base.simu import Simu
 from tick.preprocessing.longitudinal_features_lagger\
     import LongitudinalFeaturesLagger
+from warnings import warn
 
 
 class SimuSCCS(Simu):
@@ -110,50 +110,47 @@ class SimuSCCS(Simu):
     >>> print(coeffs)
     [ 0.54738557 -0.15109073  0.71345739  1.67633284 -0.25656871 -0.25655065]
      """
-    # TODO: case where censoring_intensity is too high regarding n_intervals
-    # TODO: example
 
-    def __init__(self, n_samples, n_intervals, n_features, n_lags, sparse=True,
-                 exposure_type="infinite", distribution="multinomial",
-                 first_tick_only=True, censoring=True, censoring_prob=.7,
-                 censoring_intensity=.9, coeffs=None, seed=None, verbose=True,
-                 batch_size=None):
-        if exposure_type not in ["infinite", "short"]:
-            raise ValueError("exposure_type can be only 'infinite' or 'short'.")
+    _attrinfos = {
+        "_exposure_type": {
+            "writable": False
+        },
+        "_distribution": {
+            "writable": False
+        },
+        "_censoring_prob": {
+            "writable": False
+        },
+        "_censoring_intensity": {
+            "writable": False
+        },
+        "_coeffs": {
+            "writable": False
+        },
+        "_batch_size": {
+            "writable": False
+        }
+    }
 
-        if distribution not in ["multinomial", "poisson"]:
-            raise ValueError("distribution can be only 'multinomial' or\
-             'poisson'.")
-
-        if censoring_prob < 0 or censoring_prob > 1:
-            raise ValueError("censoring_prob should be in [0, 1].")
-
-        if censoring_intensity < 0:
-            raise ValueError("censoring_intensity should be greater than 0.")
-
-        if coeffs is not None and coeffs.shape != (n_features * (n_lags + 1),):
-            raise ValueError("Coeffs should be of shape\
-             (n_features * (n_lags + 1),)")
+    def __init__(self, n_samples, n_intervals, n_features, n_lags, coeffs=None,
+                 sparse=True, exposure_type="infinite",
+                 distribution="multinomial", first_tick_only=True,
+                 censoring=True, censoring_prob=.7, censoring_intensity=.9,
+                 seed=None, verbose=True, batch_size=None):
         super(SimuSCCS, self).__init__(seed, verbose)
         self.n_samples = n_samples
         self.n_intervals = n_intervals
         self.n_features = n_features
         self.n_lags = n_lags
         self.sparse = sparse
-        self.exposure_type = exposure_type
-        self.distribution = distribution
         self.first_tick_only = first_tick_only
         self.censoring = censoring
+        self.exposure_type = exposure_type
+        self.distribution = distribution
         self.censoring_prob = censoring_prob
         self.censoring_intensity = censoring_intensity
         self.coeffs = coeffs
-        if (batch_size is None) and distribution == "multinomial":
-            self.batch_size = n_samples
-        elif (batch_size is None):
-            self.batch_size = int(min(2000, n_samples))
-        else:
-            self.batch_size = int(batch_size)
-        self.batch_size = max(100, self.batch_size)
+        self.batch_size = batch_size
 
     def simulate(self):
         """
@@ -161,12 +158,12 @@ class SimuSCCS(Simu):
 
         Returns
         -------
-        features : list of numpy.ndarray or list of scipy.sparse.csr_matrix,
+        features : `list` of `numpy.ndarray` or `list` of `scipy.sparse.csr_matrix`,
             list of length n_samples, each element of the list of 
             shape=(n_intervals, n_features)
             The list of features matrices.
 
-        labels : list of numpy.ndarray,
+        labels : `list` of `numpy.ndarray`,
             list of length n_samples, each element of the list of 
             shape=(n_intervals,)
             The labels vector
@@ -176,7 +173,7 @@ class SimuSCCS(Simu):
             [1, n_intervals]. If the value i is equal to n_intervals, then there
             is no censoring for sample i. If censoring = c < n_intervals, then 
             the observation of sample i is stopped at interval c, that is, the 
-            row c - 1 of the correponding matrix. The last n_intervals - c rows
+            row c - 1 of the corresponding matrix. The last n_intervals - c rows
             are then set to 0.
         
         coeffs : `numpy.ndarray`, shape=(n_features * (n_lags + 1),)
@@ -188,19 +185,20 @@ class SimuSCCS(Simu):
         """ Loop to generate batches of samples until n_samples is reached.
         """
         n_lagged_features = (self.n_lags + 1) * self.n_features
+        n_samples = self.n_samples
         if self.coeffs is None:
             self.coeffs = np.random.normal(1e-3, 1.1, n_lagged_features)
 
         features = []
         outcomes = []
-        out_censoring = np.zeros((self.n_samples,), dtype="uint64")
+        out_censoring = np.zeros((n_samples,), dtype="uint64")
         sample_count = 0
-        while sample_count < self.n_samples:
+        while sample_count < n_samples:
             X_temp, y_temp, _censoring, _ = self._simulate_batch()
             n_new_samples = len(y_temp)
             expected_count = sample_count + n_new_samples
-            if expected_count >= self.n_samples:
-                n = n_new_samples - (expected_count - self.n_samples)
+            if expected_count >= n_samples:
+                n = n_new_samples - (expected_count - n_samples)
             else:
                 n = n_new_samples
 
@@ -236,22 +234,22 @@ class SimuSCCS(Simu):
     def _simulate_sccs_features(self, n_samples):
         """Simulates features, either `infinite` or `short` exposures."""
         if self.exposure_type == "infinite":
-            sim_feat = lambda: self._sim_infinite_exposures(self.sparse)
+            sim = self._sim_infinite_exposures
         elif self.exposure_type == "short":
-            sim_feat = lambda: self._sim_short_exposures(self.sparse)
+            sim = self._sim_short_exposures
 
-        return [sim_feat() for i in range(n_samples)]
+        return [sim() for _ in range(n_samples)]
 
-    def _sim_short_exposures(self, sparse):
+    def _sim_short_exposures(self):
         features = np.random.randint(2,
                                      size=(self.n_intervals, self.n_features),
                                      ).astype("float64")
-        if sparse:
+        if self.sparse:
             features = csr_matrix(features, dtype="float64")
         return features
 
-    def _sim_infinite_exposures(self, sparse):
-        if not sparse:
+    def _sim_infinite_exposures(self):
+        if not self.sparse:
             raise ValueError("'infinite' exposures can only be simulated as \
             sparse feature matrices")
         # Select features for which there is exposure
@@ -284,24 +282,25 @@ class SimuSCCS(Simu):
 
     @staticmethod
     def _simulate_outcome_from_multi(features, coeffs):
-        inner_product = [f.dot(coeffs) for f in features]
+        dot_products = [f.dot(coeffs) for f in features]
 
-        def simulate(inner_prod):
-            inner_prod -= inner_prod.max()
-            probabilities = np.exp(inner_prod) / \
-                            np.sum(np.exp(inner_prod))
+        def sim(dot_prod):
+            dot_prod -= dot_prod.max()
+            probabilities = np.exp(dot_prod) / \
+                            np.sum(np.exp(dot_prod))
             y = np.random.multinomial(1, probabilities)
-            return y.astype("uint64")
+            return y.astype("int32")
 
-        return [simulate(i) for i in inner_product]
+        return [sim(dot_product) for dot_product in dot_products]
 
     @staticmethod
     def _simulate_outcome_from_poisson(features, coeffs, first_tick_only=True):
-        inner_product = [f.dot(coeffs) for f in features]
+        dot_products = [feat.dot(coeffs) for feat in features]
 
-        def simulate(inner_prod):
-            intercept = -inner_prod.max()
-            intensities = np.exp(intercept + inner_prod)
+        def sim(dot_prod):
+            dot_prod -= dot_prod.max()
+
+            intensities = np.exp(dot_prod)
             ticks = np.random.poisson(lam=intensities)
             if first_tick_only:
                 first_tick_idx = np.argmax(ticks > 0)
@@ -310,9 +309,9 @@ class SimuSCCS(Simu):
                     y[first_tick_idx] = 1
             else:
                 y = ticks
-            return y.astype("uint64")
+            return y.astype("int32")
 
-        return [simulate(i) for i in inner_product]
+        return [sim(dot_product) for dot_product in dot_products]
 
     @staticmethod
     def _censor_array_list(array_list, censoring):
@@ -377,3 +376,70 @@ class SimuSCCS(Simu):
             list(pos_samples_filter(labels)),\
             censoring[positive_sample_idx],\
             np.array(positive_sample_idx, dtype="uint64")
+
+    @property
+    def exposure_type(self):
+        return self._exposure_type
+
+    @exposure_type.setter
+    def exposure_type(self, value):
+        if value not in ["infinite", "short"]:
+            raise ValueError("exposure_type can be only 'infinite' or 'short'.")
+        self._set("_exposure_type", value)
+
+    @property
+    def distribution(self):
+        return self._distribution
+
+    @distribution.setter
+    def distribution(self, value):
+        if value not in ["multinomial", "poisson"]:
+            raise ValueError("distribution can be only 'multinomial' or\
+             'poisson'.")
+        self._set("_distribution", value)
+
+    @property
+    def censoring_prob(self):
+        return self._censoring_prob
+
+    @censoring_prob.setter
+    def censoring_prob(self, value):
+        if value < 0 or value > 1:
+            raise ValueError("value should be in [0, 1].")
+        self._set("_censoring_prob", value)
+
+    @property
+    def censoring_intensity(self):
+        return self._censoring_intensity
+
+    @censoring_intensity.setter
+    def censoring_intensity(self, value):
+        if value < 0:
+            raise ValueError("censoring_intensity should be greater than 0.")
+        self._set("_censoring_intensity", value)
+
+    @property
+    def coeffs(self):
+        return self._coeffs
+
+    @coeffs.setter
+    def coeffs(self, value):
+        if value is not None and \
+                        value.shape != (self.n_features * (self.n_lags + 1),):
+            raise ValueError("Coeffs should be of shape\
+             (n_features * (n_lags + 1),)")
+        self._set("_coeffs", value)
+
+    @property
+    def batch_size(self):
+        return self._batch_size
+
+    @batch_size.setter
+    def batch_size(self, value):
+        if value is None and self.distribution == "multinomial":
+            self._set("_batch_size", self.n_samples)
+        elif value is None:
+            self._set("_batch_size", int(min(2000, self.n_samples)))
+        else:
+            self._set("_batch_size", int(value))
+        self._set("_batch_size", max(100, self.batch_size))
