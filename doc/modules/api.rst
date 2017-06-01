@@ -309,3 +309,15 @@ Features generators
 
    dataset.fetch_tick_dataset
    dataset.fetch_hawkes_bund_data
+
+
+Survival
+---------------
+.. currentmodule:: tick
+
+.. autosummary::
+   :toctree: generated/
+   :template: class.rst
+
+   metrics.KaplanMeierEstimator
+   metrics.NelsonAalenEstimator
