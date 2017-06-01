@@ -6,7 +6,7 @@
 %template(ProxPtrVector) std::vector<ProxPtr>;
 
 class ProxMulti : public Prox {
-
-public:
-    ProxMulti(std::vector<ProxPtr> proxs, double strength);
+ public:
+   ProxMulti(std::vector<ProxPtr> proxs,
+             double strength);
 };

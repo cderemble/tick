@@ -19,7 +19,7 @@ class Test(TestProx):
         self.assertIsNone(prox.strength)
         prox.strength = 2.
         self.assertIsNone(prox.strength)
-        self.assertEquals(prox.value(coeffs), 0.)
+        self.assertEqual(prox.value(coeffs), 0.)
 
         out = np.empty(coeffs.shape)
         out.fill(np.mean(coeffs))

@@ -1,6 +1,4 @@
-
 #include "prox_slope.h"
-
 
 ProxSlope::ProxSlope(double strength,
                      double fdr,
