@@ -9,6 +9,7 @@ from .hawkes_em import HawkesEM
 from .hawkes_adm4 import HawkesADM4
 from .hawkes_basis_kernels import HawkesBasisKernels
 from .hawkes_sumgaussians import HawkesSumGaussians
+from .survival import Survival
 
 __all__ = ["LogisticRegression",
            "CoxRegression",
@@ -19,4 +20,5 @@ __all__ = ["LogisticRegression",
            "HawkesADM4",
            "HawkesBasisKernels",
            "HawkesSumGaussians",
+           "Survival",
            ]
