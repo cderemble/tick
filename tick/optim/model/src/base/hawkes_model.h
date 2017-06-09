@@ -54,7 +54,7 @@ class ModelHawkes : public Model {
   inline double cexp(double x) {
     return optimized_exp(x, optimization_level);
   }
-  
+
   friend class ModelHawkesList;
 };
 

@@ -1,3 +1,5 @@
+add_definitions("-DBUILDING_DLL")
+
 add_library(base EXCLUDE_FROM_ALL
         time_func.h
         time_func.cpp
