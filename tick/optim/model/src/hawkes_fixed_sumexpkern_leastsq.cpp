@@ -83,10 +83,6 @@ double ModelHawkesFixedSumExpKernLeastSq::loss_i(const ulong i,
   A_i += Dgg_sum;
   A_i += 2 * E_sum;
 
-<<<<<<< HEAD
-  double B_i = mu_i * static_cast<double>((*n_jumps_per_node)[i]);
-=======
->>>>>>> cf8382f6b460204ea4be01140c9fd539f1c126db
   B_i += C_sum;
 
   return A_i - 2 * B_i;
