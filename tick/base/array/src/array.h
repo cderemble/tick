@@ -172,9 +172,7 @@ class Array : public BaseArray<T> {
                     _data[x.indices()[j]] += x.data()[j] * a;
                 }
             } else {
-                for (ulong j = 0; j < this->size(); ++j) {
-                    _data[j] += x.data()[j] * a;
-                }
+                tick::vector_operations<T>{}.mult_incr(this->size(), a, x.data(), this->data());
             }
         }
     }
@@ -236,7 +234,7 @@ Array<T>::Array(ulong size, T *data1)
     // if no one gave us data we allocate it and are now responsible for it
     if (data1 == nullptr) {
         is_data_allocation_owned = true;
-        PYSHARED_ALLOC_ARRAY(_data, T, _size);
+        TICK_PYTHON_MALLOC(_data, T, _size);
     } else {
         // Otherwise the one who gave the data is responsible for its allocation
         is_data_allocation_owned = false;
@@ -250,7 +248,7 @@ Array<T>::Array(std::initializer_list<T> data_list)
     : BaseArray<T>(true) {
     is_data_allocation_owned = true;
     _size = data_list.size();
-    PYSHARED_ALLOC_ARRAY(_data, T, _size);
+    TICK_PYTHON_MALLOC(_data, T, _size);
     size_t index = 0;
     for (auto it = data_list.begin(); it != data_list.end(); ++it) {
         _data[index] = *it;
@@ -261,7 +259,7 @@ Array<T>::Array(std::initializer_list<T> data_list)
 // fill with given value
 template<typename T>
 void Array<T>::fill(const T value) {
-    cblas_wrappers<T>{}.set(_size, value, _data);
+    tick::vector_operations<T>{}.set(_size, value, _data);
 }
 
 // sort array inplace
@@ -336,7 +334,7 @@ void Array<T>::sort_abs(Array<ulong> &index, bool increasing) {
 template<typename T>
 void Array<T>::multiply(const T fact, Array<T> *out) {
     if (out == nullptr) {
-        cblas_wrappers<T>{}.scale(_size, fact, _data);
+        tick::vector_operations<T>{}.scale(_size, fact, _data);
     } else {
         for (ulong i = 0; i < _size; i++)
             (*out)[i] = _data[i] * fact;

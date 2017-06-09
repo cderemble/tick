@@ -11,7 +11,7 @@
 
 #include <cstring>
 
-#include "cblas_wrappers.h"
+#include "vector_operations.h"
 #include "promote.h"
 
 #include <cereal/types/base_class.hpp>
@@ -129,7 +129,7 @@ class AbstractArray1d2d {
     //! @brief Fill array with zeros (in case of a sparse array we do not
     //! desallocate the various arrays... so it is a "lazy" but quick init !)
     void init_to_zero() {
-        cblas_wrappers<T>{}.set(size_data(), T{0}, _data);
+        tick::vector_operations<T>{}.set(size_data(), T{0}, _data);
     }
 
     //! @brief Returns the sum of all the elements of the array
@@ -175,8 +175,8 @@ AbstractArray1d2d<T>::~AbstractArray1d2d() {
     std::cout << type() << " Destructor : ~AbstractArray1d2d on " << this << std::endl;
 #endif
     // Delete owned allocations
-    if (is_data_allocation_owned && _data != nullptr) PYSHARED_FREE_ARRAY(_data);
-    if (is_indices_allocation_owned && _indices != nullptr) PYSHARED_FREE_ARRAY(_indices);
+    if (is_data_allocation_owned && _data != nullptr) TICK_PYTHON_FREE(_data);
+    if (is_indices_allocation_owned && _indices != nullptr) TICK_PYTHON_FREE(_indices);
 
     _data = nullptr;
     _indices = nullptr;
@@ -195,13 +195,13 @@ AbstractArray1d2d<T>::AbstractArray1d2d(const AbstractArray1d2d<T> &other) {
     is_data_allocation_owned = true;
     _data = nullptr;
     if (other.is_dense()) {
-        PYSHARED_ALLOC_ARRAY(_data, T, _size);
+        TICK_PYTHON_MALLOC(_data, T, _size);
         memcpy(_data, other._data, sizeof(T) * _size);
         _indices = nullptr;
     } else {
-        PYSHARED_ALLOC_ARRAY(_data, T, _size_sparse);
+        TICK_PYTHON_MALLOC(_data, T, _size_sparse);
         memcpy(_data, other._data, sizeof(T) * _size_sparse);
-        PYSHARED_ALLOC_ARRAY(_indices, INDICE_TYPE, _size_sparse);
+        TICK_PYTHON_MALLOC(_indices, INDICE_TYPE, _size_sparse);
         memcpy(_indices, other._indices, sizeof(INDICE_TYPE) * _size_sparse);
     }
 }
@@ -236,21 +236,21 @@ AbstractArray1d2d<T> &AbstractArray1d2d<T>::operator=(const AbstractArray1d2d<T>
 #endif
     if (this != &other) {
         // Delete owned allocations
-        if (is_data_allocation_owned && _data != nullptr) PYSHARED_FREE_ARRAY(_data);
-        if (is_indices_allocation_owned && _indices != nullptr) PYSHARED_FREE_ARRAY(_indices);
+        if (is_data_allocation_owned && _data != nullptr) TICK_PYTHON_FREE(_data);
+        if (is_indices_allocation_owned && _indices != nullptr) TICK_PYTHON_FREE(_indices);
         is_indices_allocation_owned = true;
         is_data_allocation_owned = true;
         _size = other._size;
         _size_sparse = other._size_sparse;
         if (other.is_dense()) {
-            PYSHARED_ALLOC_ARRAY(_data, T, _size);
+            TICK_PYTHON_MALLOC(_data, T, _size);
             memcpy(_data, other._data, sizeof(T) * _size);
             _indices = nullptr;
         } else {
             if (_size_sparse > 0) {
-                PYSHARED_ALLOC_ARRAY(_data, T, _size_sparse);
+                TICK_PYTHON_MALLOC(_data, T, _size_sparse);
                 memcpy(_data, other._data, sizeof(T) * _size_sparse);
-                PYSHARED_ALLOC_ARRAY(_indices, INDICE_TYPE, _size_sparse);
+                TICK_PYTHON_MALLOC(_indices, INDICE_TYPE, _size_sparse);
                 memcpy(_indices, other._indices, sizeof(INDICE_TYPE) * _size_sparse);
             }
         }
@@ -265,8 +265,8 @@ AbstractArray1d2d<T> &AbstractArray1d2d<T>::operator=(AbstractArray1d2d<T> &&oth
     std::cout << type() << " Move Assignement : operator = (AbstractArray1d2d && "
     << &other << ") --> " << this << std::endl;
 #endif
-    if (is_data_allocation_owned && _data != nullptr) PYSHARED_FREE_ARRAY(_data);
-    if (is_indices_allocation_owned && _indices != nullptr) PYSHARED_FREE_ARRAY(_indices);
+    if (is_data_allocation_owned && _data != nullptr) TICK_PYTHON_FREE(_data);
+    if (is_indices_allocation_owned && _indices != nullptr) TICK_PYTHON_FREE(_indices);
     _size = other._size;
     is_indices_allocation_owned = other.is_indices_allocation_owned;
     is_data_allocation_owned = other.is_data_allocation_owned;
@@ -288,7 +288,7 @@ tick::promote_t<T> AbstractArray1d2d<T>::sum() const {
     if (_size == 0) TICK_ERROR("Cannot take the sum of an empty array");
     if (size_data() == 0) return 0;
 
-    return cblas_wrappers<T>{}.sum(size_data(), _data);;
+    return tick::vector_operations<T>{}.sum(size_data(), _data);;
 }
 
 // @brief Returns the min
@@ -344,7 +344,7 @@ void AbstractArray1d2d<T>::operator*=(const T a) {
     if (_size == 0) TICK_ERROR("Cannot apply *= on an empty array");
     if (size_data() == 0) return;
 
-    cblas_wrappers<T>{}.scale(size_data(), a, _data);
+    tick::vector_operations<T>{}.scale(size_data(), a, _data);
 }
 
 namespace tick {

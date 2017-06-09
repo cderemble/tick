@@ -155,7 +155,7 @@ Array2d<T>::Array2d(ulong n_rows, ulong n_cols, T *data) :
     // if no one gave us data we allocate it and are now responsible for it
     if (data == nullptr) {
         is_data_allocation_owned = true;
-        PYSHARED_ALLOC_ARRAY(_data, T, _size);
+        TICK_PYTHON_MALLOC(_data, T, _size);
     } else {
         // Otherwise the one who gave the data is responsible for its allocation
         is_data_allocation_owned = false;
@@ -166,7 +166,7 @@ Array2d<T>::Array2d(ulong n_rows, ulong n_cols, T *data) :
 // fill with given value
 template<typename T>
 void Array2d<T>::fill(T value) {
-    cblas_wrappers<T>{}.set(_size, value, _data);
+    tick::vector_operations<T>{}.set(_size, value, _data);
 }
 
 template<typename T>
