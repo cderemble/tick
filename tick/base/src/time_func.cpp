@@ -94,7 +94,7 @@ TimeFunction::TimeFunction(const ArrayDouble &T, const ArrayDouble &Y,
   double t = t0;
 
   // Index of the left point selected
-  double index_left = 0;
+  long index_left = 0;
   // initialize with the first two points
   double t_left = T[index_left];
   double y_left = Y[index_left];

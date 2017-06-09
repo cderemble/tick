@@ -12,10 +12,16 @@
 #include <atomic>
 #include <exception>
 
+#include "defs.h"
+
+
+class DLL_PUBLIC std::exception;
+template struct DLL_PUBLIC std::atomic<bool>;
+
 /*! \class Interruption
  * \brief Exception Class made to handle Ctrl-C interruption
  */
-class Interruption : public std::exception {
+class DLL_PUBLIC Interruption : public std::exception {
  private:
     static std::atomic<bool> flag_interrupt;
 

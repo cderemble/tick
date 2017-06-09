@@ -22,9 +22,7 @@
 #ifndef TICK_BASE_SRC_MATH_T2EXP_H_
 #define TICK_BASE_SRC_MATH_T2EXP_H_
 
-#ifdef  __cplusplus
-extern "C" {
-#endif/*__cplusplus*/
+#include "defs.h"
 
 /* --------------------------------------------------------------
     Name:       t2exp
@@ -42,7 +40,7 @@ extern "C" {
                 exp() function - that is either 0 or INF.
 -------------------------------------------------------------- */
 
-extern double t2exp(double arg);
+DLL_PUBLIC double t2exp(double arg);
 
 /* --------------------------------------------------------------
     Name:       t2expini
@@ -54,7 +52,7 @@ extern double t2exp(double arg);
     Note:       Used for development purposes only!
 -------------------------------------------------------------- */
 
-extern void t2expini(void);
+DLL_PUBLIC void t2expini(void);
 
 /* --------------------------------------------------------------
     Name:       t2expinl
@@ -66,18 +64,14 @@ extern void t2expini(void);
     Note:       Used for development purposes only!
 -------------------------------------------------------------- */
 
-extern void t2expinl(void);
+DLL_PUBLIC void t2expinl(void);
 
-inline extern double optimized_exp(double x,
+inline double optimized_exp(double x,
                                    int optimization_level) {
   switch (optimization_level) {
     case 0:return exp(x);
     default:return t2exp(x);
   }
 }
-
-#ifdef  __cplusplus
-}
-#endif/*__cplusplus*/
 
 #endif  // TICK_BASE_SRC_MATH_T2EXP_H_

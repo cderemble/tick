@@ -3,6 +3,7 @@
 //
 
 #include "model_generalized_linear.h"
+#include "parallel/parallel.h"
 
 ModelGeneralizedLinear::ModelGeneralizedLinear(const SBaseArrayDouble2dPtr features,
                                                const SArrayDoublePtr labels,

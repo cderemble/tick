@@ -1,5 +1,6 @@
 
 #include "hawkes_basis_kernels.h"
+#include "parallel/parallel.h"
 
 // Procedure called by HawkesBasisKernels::solve
 // Not commented, see LaTeX notes

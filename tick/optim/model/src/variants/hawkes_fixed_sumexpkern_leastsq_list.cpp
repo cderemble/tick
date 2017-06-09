@@ -1,5 +1,6 @@
 
 #include "hawkes_fixed_sumexpkern_leastsq_list.h"
+#include "parallel/parallel.h"
 #include "../hawkes_utils.h"
 
 ModelHawkesFixedSumExpKernLeastSqList::ModelHawkesFixedSumExpKernLeastSqList(

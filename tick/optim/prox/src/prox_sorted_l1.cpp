@@ -4,7 +4,7 @@
 
 #include "prox_sorted_l1.h"
 
-#include <stdio.h>
+#include <cstdio>
 #include <cmath>
 
 ProxSortedL1::ProxSortedL1(double strength,

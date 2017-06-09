@@ -2,11 +2,37 @@
 #define TICK_RANDOM_SRC_RAND_H_
 
 #include <mutex>
-#include <math.h>
-#include <time.h>
+#include <cmath>
+#include <ctime>
 #include <iostream>
 #include <random>
-#include <array.h>
+
+#include "array.h"
+
+#if defined _MSC_VER
+template struct DLL_PUBLIC std::uniform_int<int>::param_type;
+template struct DLL_PUBLIC std::uniform_int<ulong>::param_type;
+template struct DLL_PUBLIC std::uniform_real<double>::param_type;
+template struct DLL_PUBLIC std::normal_distribution<double>::param_type;
+template struct DLL_PUBLIC std::exponential_distribution<double>::param_type;
+template struct DLL_PUBLIC std::poisson_distribution<int>::param_type;
+template struct DLL_PUBLIC std::discrete_distribution<ulong>::param_type;
+
+template class DLL_PUBLIC std::uniform_int_distribution<int>;
+template class DLL_PUBLIC std::uniform_int_distribution<ulong>;
+template class DLL_PUBLIC std::uniform_real_distribution<double>;
+template class DLL_PUBLIC std::normal_distribution<double>;
+template class DLL_PUBLIC std::exponential_distribution<double>;
+template class DLL_PUBLIC std::poisson_distribution<int>;
+template class DLL_PUBLIC std::discrete_distribution<ulong>;
+
+template class DLL_PUBLIC std::mersenne_twister_engine<uint_fast64_t,
+  64,312,156,31,0xb5026f5aa96619e9,
+  29,0x5555555555555555,
+  17,0x71d67fffeda60000,
+  37,0xfff7eee000000000,
+  43,6364136223846793005>;
+#endif
 
 /**
  * @class Rand
@@ -15,7 +41,7 @@
  * Each instance wraps a Mersenne Twister random number generator and generate random probability
  * distributions from it.
  */
-class Rand {
+class DLL_PUBLIC Rand {
  private:
     int seed;
     std::mt19937_64 generator;

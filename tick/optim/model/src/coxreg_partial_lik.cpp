@@ -34,7 +34,7 @@ ModelCoxRegPartialLik::ModelCoxRegPartialLik(const SBaseArrayDouble2dPtr feature
     // Count number of true failure times, and sort censoring by with respect to decreasing times
     for (ulong i=0; i < n_samples; i++) {
         censoring[i] = (*censoring_)[idx[i]];
-        ushort is_failure = censoring[i];
+        ulong is_failure = censoring[i];
         if (is_failure != 0) {
             n_failures++;
         }
@@ -53,7 +53,7 @@ ModelCoxRegPartialLik::ModelCoxRegPartialLik(const SBaseArrayDouble2dPtr feature
 
     ulong i_failure = 0;
     for (ulong i=0; i < n_samples; i++) {
-        ushort is_failure = get_censoring(i);
+        ulong is_failure = get_censoring(i);
         if (is_failure != 0) {
             idx_failures[i_failure] = i;
             i_failure++;

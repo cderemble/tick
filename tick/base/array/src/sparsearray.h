@@ -78,6 +78,8 @@ class SparseArray : public BaseArray<T> {
     std::shared_ptr<SSparseArray<T>> as_ssparsearray_ptr();
 };
 
+#include "view.h"
+
 // Constructor
 template<typename T>
 SparseArray<T>::SparseArray(ulong size, ulong size_sparse, INDICE_TYPE *indices, T *data) :

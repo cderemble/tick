@@ -7,10 +7,15 @@
 
 #include "array.h"
 
-extern double standard_normal_cdf(double x);
+#ifndef DLL_PUBLIC
+    #define DLL_PUBLIC
+#endif
 
-extern double standard_normal_inv_cdf(const double q);
 
-extern void standard_normal_inv_cdf(ArrayDouble &q, ArrayDouble &out);
+DLL_PUBLIC double standard_normal_cdf(double x);
+
+DLL_PUBLIC double standard_normal_inv_cdf(const double q);
+
+DLL_PUBLIC void standard_normal_inv_cdf(ArrayDouble &q, ArrayDouble &out);
 
 #endif  // TICK_BASE_SRC_MATH_NORMAL_DISTRIBUTION_H_

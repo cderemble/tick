@@ -3,6 +3,7 @@
 //
 
 #include "model_generalized_linear_with_intercepts.h"
+#include "parallel/parallel.h"
 
 ModelGeneralizedLinearWithIntercepts::ModelGeneralizedLinearWithIntercepts(
     const SBaseArrayDouble2dPtr features,

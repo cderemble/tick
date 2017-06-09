@@ -1,5 +1,6 @@
 #include "base.h"
 #include "hawkes_sumgaussians.h"
+#include "parallel/parallel.h"
 
 // soft-thresholding operator
 double soft_thres(double z, double alpha) {

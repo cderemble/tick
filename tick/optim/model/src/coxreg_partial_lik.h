@@ -30,7 +30,7 @@ class ModelCoxRegPartialLik : public Model {
         return times[i];
     }
 
-    inline ushort get_censoring(ulong i) const {
+    inline ulong get_censoring(ulong i) const {
         return censoring[i];
     }
 

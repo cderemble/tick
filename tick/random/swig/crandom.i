@@ -1,4 +1,5 @@
 %module crandom
+
 %include defs.i
 
 %{

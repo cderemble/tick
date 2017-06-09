@@ -1,5 +1,6 @@
 
 #include "hawkes_fixed_expkern_leastsq.h"
+#include "parallel/parallel.h"
 
 // Constructor
 ModelHawkesFixedExpKernLeastSq::ModelHawkesFixedExpKernLeastSq(
@@ -68,7 +69,7 @@ void ModelHawkesFixedExpKernLeastSq::grad(const ArrayDouble &coeffs, ArrayDouble
                this,
                coeffs,
                out);
-  out /= n_total_jumps;
+  out /= static_cast<double>(n_total_jumps);
 }
 
 // Method that computes the component i of the gradient
@@ -108,7 +109,7 @@ void ModelHawkesFixedExpKernLeastSq::hessian(ArrayDouble &out) {
 
   // This allows to run in a multithreaded environment the computation of each component
   parallel_run(get_n_threads(), n_nodes, &ModelHawkesFixedExpKernLeastSq::hessian_i, this, out);
-  out /= n_total_jumps;
+  out /= static_cast<double>(n_total_jumps);
 }
 
 void ModelHawkesFixedExpKernLeastSq::hessian_i(const ulong i, ArrayDouble &out) {

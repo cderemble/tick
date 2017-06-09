@@ -1,5 +1,6 @@
 
 #include "hawkes_model.h"
+#include "parallel/parallel.h"
 
 ModelHawkes::ModelHawkes(const int max_n_threads,
                          const unsigned int optimization_level) :

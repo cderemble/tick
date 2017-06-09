@@ -9,10 +9,12 @@
 #ifndef TICK_BASE_ARRAY_TEST_SRC_TIMER_H_
 #define TICK_BASE_ARRAY_TEST_SRC_TIMER_H_
 
-#include <time.h>
+#include <ctime>
 
 #include <iostream>
 #include <iomanip>
+#include <string>
+
 
 #define START_TIMER(i, message) \
 clock_t __timer ## i = clock(); std::string __timer_message ## i = message

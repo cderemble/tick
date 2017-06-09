@@ -99,17 +99,17 @@ SArrayDoublePtr test_discrete(ArrayDouble &probabilities,
     ulong step3 = 3 * size / 4;
 
     for (ulong i = 0; i < step1; i++) {
-        (*sample)[i] = rand.discrete(probabilities);
+        (*sample)[i] = static_cast<double>(rand.discrete(probabilities));
     }
     rand.set_discrete_dist(probabilities);
     for (ulong i = step1; i < step2; i++) {
-        (*sample)[i] = rand.discrete();
+        (*sample)[i] = static_cast<double>(rand.discrete());
     }
     for (ulong i = step2; i < step3; i++) {
-        (*sample)[i] = rand.discrete(probabilities);
+        (*sample)[i] = static_cast<double>(rand.discrete(probabilities));
     }
     for (ulong i = step3; i < size; i++) {
-        (*sample)[i] = rand.discrete();
+        (*sample)[i] = static_cast<double>(rand.discrete());
     }
     return sample;
 }

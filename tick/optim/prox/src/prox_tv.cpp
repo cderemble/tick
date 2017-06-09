@@ -45,7 +45,7 @@ void ProxTV::_call(ArrayDouble &coeffs,
     ArrayDouble sub_coeffs = view(coeffs, start, end);
     ArrayDouble sub_out = view(out, start, end);
 
-    const double width = sub_coeffs.size();
+    const ulong width = sub_coeffs.size();
     const double thresh = step * strength;
 
     if (width > 0) {                /*to avoid invalid memory access to input[0]*/
@@ -56,7 +56,7 @@ void ProxTV::_call(ArrayDouble &coeffs,
         const double twolambda = 2.0 * thresh;    /*auxiliary variable*/
         const double minlambda = -thresh;        /*auxiliary variable*/
         for (;;) {                /*simple loop, the exit test is inside*/
-            while (k == width - 1) {    /*we use the right boundary condition*/
+            while (k + 1 == width) {    /*we use the right boundary condition*/
                 if (umin < 0.0) {            /*vmin is too high -> negative jump necessary*/
                     do
                         sub_out[k0++] = vmin;

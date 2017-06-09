@@ -7,7 +7,7 @@
 
 #include "prox.h"
 
-class ProxSeparable : public Prox {
+class DLL_PUBLIC ProxSeparable : public Prox {
  public:
     explicit ProxSeparable(double strength);
 

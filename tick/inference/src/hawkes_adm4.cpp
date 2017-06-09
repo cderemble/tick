@@ -1,6 +1,7 @@
 
 #include "base.h"
 #include "hawkes_adm4.h"
+#include "parallel/parallel.h"
 
 HawkesADM4::HawkesADM4(const double decay, const double rho,
                        const int max_n_threads, const unsigned int optimization_level)

@@ -4,11 +4,13 @@
 
 #ifndef TICK_OPTIM_PROX_SRC_PROX_H_
 #define TICK_OPTIM_PROX_SRC_PROX_H_
+
 #include <memory>
-#include "base.h"
 #include <string>
 
-class Prox {
+#include "base.h"
+
+class DLL_PUBLIC Prox {
  protected:
     // Weight of the proximal operator
     double strength;
@@ -55,6 +57,8 @@ class Prox {
     ulong get_start();
     ulong get_end();
 };
+
+template class DLL_PUBLIC std::shared_ptr<Prox>;
 
 typedef std::shared_ptr<Prox> ProxPtr;
 

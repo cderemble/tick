@@ -18,9 +18,6 @@
  *                         backtrace and error loc
 */
 
-#include <execinfo.h>
-#include <unistd.h>
-
 #include <string>
 #include <iostream>
 #include <sstream>
@@ -28,6 +25,7 @@
 #include <array>
 #include <type_traits>
 
+#include "backtrace.h"
 #include "defs.h"
 
 #ifdef DEBUG_VERBOSE
@@ -54,6 +52,7 @@ class TemporaryLog {
   }
 
   TemporaryLog &insert_backtrace() {
+#if Backtrace_FOUND
     std::array<void *, 100> stack_addresses;
 
     const int num_addresses = backtrace(stack_addresses.data(), stack_addresses.size());
@@ -63,7 +62,7 @@ class TemporaryLog {
 
     for (int j = 0; j < std::min(num_addresses, 10); ++j)
       (*this) << strings[j] << '\n';
-
+#endif
     return *this;
   }
 
@@ -103,7 +102,7 @@ struct LogExitCout {
 /**
  * Inserts filename, linenumber and function name into stream
  */
-#define TICK_LOG_PREFIX __FILE__ ":"  << __LINE__ << " in " << __PRETTY_FUNCTION__ << ": "
+#define TICK_LOG_PREFIX __FILE__ ":"  << __LINE__ << " in " << __FUNCTION__ << ": "
 
 /**
  * \defgroup error_mod Error management

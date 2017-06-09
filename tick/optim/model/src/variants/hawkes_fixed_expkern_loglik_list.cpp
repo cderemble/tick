@@ -1,5 +1,6 @@
 
 #include "hawkes_fixed_expkern_loglik_list.h"
+#include "parallel/parallel.h"
 
 ModelHawkesFixedExpKernLogLikList::ModelHawkesFixedExpKernLogLikList(
     const double decay, const int max_n_threads) :
@@ -111,7 +112,7 @@ void ModelHawkesFixedExpKernLogLikList::grad(const ArrayDouble &coeffs, ArrayDou
       [](ArrayDouble &r, const ArrayDouble &s) { r.mult_incr(s, 1.0); },
       &ModelHawkesFixedExpKernLogLikList::grad_i_r,
       this, out, coeffs);
-  out /= get_n_total_jumps();
+  out /= static_cast<double>(get_n_total_jumps());
 }
 
 void ModelHawkesFixedExpKernLogLikList::grad_i(const ulong i, const ArrayDouble &coeffs,

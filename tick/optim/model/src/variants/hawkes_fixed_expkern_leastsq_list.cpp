@@ -1,4 +1,5 @@
 #include "hawkes_fixed_expkern_leastsq_list.h"
+#include "parallel/parallel.h"
 
 ModelHawkesFixedExpKernLeastSqList::ModelHawkesFixedExpKernLeastSqList(
     const SArrayDouble2dPtr decays,

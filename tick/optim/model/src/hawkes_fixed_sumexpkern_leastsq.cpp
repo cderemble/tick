@@ -1,5 +1,6 @@
 
 #include "hawkes_fixed_sumexpkern_leastsq.h"
+#include "parallel/parallel.h"
 
 ModelHawkesFixedSumExpKernLeastSq::ModelHawkesFixedSumExpKernLeastSq(
     const ArrayDouble &decays,
@@ -68,7 +69,7 @@ double ModelHawkesFixedSumExpKernLeastSq::loss_i(const ulong i,
   A_i += Dgg_sum;
   A_i += 2 * E_sum;
 
-  double B_i = mu_i * (*n_jumps_per_node)[i];
+  double B_i = mu_i * static_cast<double>((*n_jumps_per_node)[i]);
   B_i += C_sum;
 
   return A_i - 2 * B_i;
@@ -87,7 +88,7 @@ void ModelHawkesFixedSumExpKernLeastSq::grad(const ArrayDouble &coeffs,
                this,
                coeffs,
                out);
-  out /= n_total_jumps;
+  out /= static_cast<double>(n_total_jumps);
 }
 
 // Method that computes the component i of the gradient
@@ -105,7 +106,7 @@ void ModelHawkesFixedSumExpKernLeastSq::grad_i(const ulong i,
   ArrayDouble grad_alpha_i = view(out, start_alpha_i, end_alpha_i);
   grad_alpha_i.init_to_zero();
 
-  grad_mu_i = 2 * mu_i * end_time - 2 * (*n_jumps_per_node)[i];
+  grad_mu_i = 2 * mu_i * end_time - 2 * static_cast<double>((*n_jumps_per_node)[i]);
 
   ArrayDouble2d &C_i = C[i];
   for (ulong j = 0; j < n_nodes; ++j) {

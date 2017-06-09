@@ -232,7 +232,7 @@ void SArray<T>::clear() {
 
 // Destructor
 template<typename T>
-SArray<T>::~SArray<T>() {
+SArray<T>::~SArray() {
 #ifdef DEBUG_SHAREDARRAY
     n_allocs--;
     std::cout << "SArray Destructor (->#" << n_allocs << ") : ~SArray on " <<  this << std::endl;
@@ -256,6 +256,7 @@ std::shared_ptr<SArray<T>> Array<T>::as_sarray_ptr() {
 }
 
 // Instanciations
+#include "dot.h"
 
 /**
  * \defgroup SArray_typedefs_mod SArray related typedef
@@ -267,6 +268,8 @@ std::shared_ptr<SArray<T>> Array<T>::as_sarray_ptr() {
 /**
  * @}
  */
+
+template class DLL_PUBLIC SArray<double>;
 
 /** @defgroup sarray_sub_mod The instantiations of the SArray template
  *  @ingroup SArray_typedefs_mod
@@ -285,6 +288,8 @@ typedef SArray<ulong> SArrayULong;
 /**
  * @}
  */
+
+template class DLL_PUBLIC std::shared_ptr<SArrayDouble>;
 
 /** @defgroup sarrayptr_sub_mod The shared pointer array classes
  *  @ingroup SArray_typedefs_mod

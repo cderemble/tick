@@ -12,9 +12,7 @@
 #include "defs.h"
 #include "debug.h"
 
-#include "interruption.h"
 #include "time_func.h"
-#include "parallel/parallel.h"
 #include "math/t2exp.h"
 #include "math/normal_distribution.h"
 

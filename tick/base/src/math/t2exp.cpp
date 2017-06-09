@@ -17,14 +17,11 @@
     WILL NOT BE LIABLE FOR DATA LOSS, DAMAGES, LOSS OF PROFITS OR
     ANY OTHER KIND OF LOSS WHILE USING OR MISUSING THIS SOFTWARE.
 -------------------------------------------------------------- */
-#include <math.h>       /* Header file for standard math functions */
-#include <stdio.h>      /* Header file for standard io functions */
+#include <cmath>       /* Header file for standard math functions */
+#include <cstdio>      /* Header file for standard io functions */
 #include <cstdint>
 #include "t2exp.h"      /* Header file for t2exp function */
 
-#ifdef  __cplusplus
-extern "C" {
-#endif/*__cplusplus*/
 
 /* --------------------------------------------------------------
     Key constants:
@@ -299,7 +296,3 @@ void t2expinl(void) {
 
   printf("\n#endif/*EXPTABLE && MULT*/\n");
 }
-
-#ifdef  __cplusplus
-}
-#endif/*__cplusplus*/

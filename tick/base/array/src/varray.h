@@ -123,7 +123,7 @@ void VArray<T>::set_size(ulong newsize, bool flagRemember) {
         Array<T>::_size = newsize;
         return;
     }
-    ulong newSizeAlloc = VARRAY_FACTOR_INCRALLOC * newsize;
+    ulong newSizeAlloc = static_cast<ulong>(VARRAY_FACTOR_INCRALLOC * newsize);
     T *tempPtr{nullptr};
 #ifdef DEBUG_VARRAY
     std::cout << "VArray : SetSize : Alloc data of sizeAlloc=" << newSizeAlloc << " on " << this << std::endl;

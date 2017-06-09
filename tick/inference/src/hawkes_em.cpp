@@ -1,5 +1,6 @@
 
 #include "hawkes_em.h"
+#include "parallel/parallel.h"
 
 HawkesEM::HawkesEM(const double kernel_support, const ulong kernel_size,
                    const int max_n_threads)
