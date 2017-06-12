@@ -20,78 +20,78 @@
 
 // For arrays
 #define EXTERN_ARRAY(ARRAY_TYPE, ARRAY2D_TYPE, ARRAY_LIST1D_TYPE, ARRAY_LIST2D_TYPE, C_TYPE) \
-    extern DLL_PUBLIC bool BuildFromPyObj_##ARRAY_TYPE(PyObject *obj, ARRAY_TYPE *result); \
-    extern DLL_PUBLIC bool BuildFromPyObj_List1d_##ARRAY_TYPE(PyObject *obj, ARRAY_LIST1D_TYPE &list); \
-    extern DLL_PUBLIC bool BuildFromPyObj_List2d_##ARRAY_TYPE(PyObject *obj, ARRAY_LIST2D_TYPE &list); \
-    extern DLL_PUBLIC bool BuildFromPyObj_##ARRAY2D_TYPE(PyObject *obj, ARRAY2D_TYPE *result); \
-    extern DLL_PUBLIC int TypeCheckPyObj_##ARRAY_TYPE(PyObject *obj); \
-    extern DLL_PUBLIC int TypeCheckPyObj_##ARRAY2D_TYPE(PyObject *obj); \
-    extern DLL_PUBLIC int TestPyObj_List1d_##ARRAY_TYPE(PyObject *obj); \
-    extern DLL_PUBLIC int TestPyObj_List2d_##ARRAY_TYPE(PyObject *obj); \
-    extern DLL_PUBLIC int TestPyObj_List1d_##ARRAY2D_TYPE(PyObject *obj); \
-    extern DLL_PUBLIC int TestPyObj_List2d_##ARRAY2D_TYPE(PyObject *obj);
+    DLL_PUBLIC bool BuildFromPyObj_##ARRAY_TYPE(PyObject *obj, ARRAY_TYPE *result); \
+    DLL_PUBLIC bool BuildFromPyObj_List1d_##ARRAY_TYPE(PyObject *obj, ARRAY_LIST1D_TYPE &list); \
+    DLL_PUBLIC bool BuildFromPyObj_List2d_##ARRAY_TYPE(PyObject *obj, ARRAY_LIST2D_TYPE &list); \
+    DLL_PUBLIC bool BuildFromPyObj_##ARRAY2D_TYPE(PyObject *obj, ARRAY2D_TYPE *result); \
+    DLL_PUBLIC int TypeCheckPyObj_##ARRAY_TYPE(PyObject *obj); \
+    DLL_PUBLIC int TypeCheckPyObj_##ARRAY2D_TYPE(PyObject *obj); \
+    DLL_PUBLIC int TestPyObj_List1d_##ARRAY_TYPE(PyObject *obj); \
+    DLL_PUBLIC int TestPyObj_List2d_##ARRAY_TYPE(PyObject *obj); \
+    DLL_PUBLIC int TestPyObj_List1d_##ARRAY2D_TYPE(PyObject *obj); \
+    DLL_PUBLIC int TestPyObj_List2d_##ARRAY2D_TYPE(PyObject *obj);
 
 // For sparsearrays
 #define EXTERN_SPARSEARRAY(SPARSEARRAY_TYPE, SPARSEARRAY2D_TYPE, C_TYPE) \
-    extern DLL_PUBLIC bool BuildFromPyObj_##SPARSEARRAY2D_TYPE(PyObject *obj, SPARSEARRAY2D_TYPE *result); \
-    extern DLL_PUBLIC bool BuildFromPyObj_##SPARSEARRAY_TYPE(PyObject *obj, SPARSEARRAY_TYPE *result); \
-    extern DLL_PUBLIC int TypeCheckPyObj_##SPARSEARRAY_TYPE(PyObject *obj); \
-    extern DLL_PUBLIC int TypeCheckPyObj_##SPARSEARRAY2D_TYPE(PyObject *obj); \
-    extern DLL_PUBLIC bool TestPyObj_##SPARSEARRAY2D_TYPE(PyObject * obj, ulong *n_rows, ulong *n_cols, INDICE_TYPE **row_indices, INDICE_TYPE **indices, C_TYPE ** data, ulong *size_sparse, PyObject **obj_indptr, PyObject **obj_indices, PyObject **obj_data)
+    DLL_PUBLIC bool BuildFromPyObj_##SPARSEARRAY2D_TYPE(PyObject *obj, SPARSEARRAY2D_TYPE *result); \
+    DLL_PUBLIC bool BuildFromPyObj_##SPARSEARRAY_TYPE(PyObject *obj, SPARSEARRAY_TYPE *result); \
+    DLL_PUBLIC int TypeCheckPyObj_##SPARSEARRAY_TYPE(PyObject *obj); \
+    DLL_PUBLIC int TypeCheckPyObj_##SPARSEARRAY2D_TYPE(PyObject *obj); \
+    DLL_PUBLIC bool TestPyObj_##SPARSEARRAY2D_TYPE(PyObject * obj, ulong *n_rows, ulong *n_cols, INDICE_TYPE **row_indices, INDICE_TYPE **indices, C_TYPE ** data, ulong *size_sparse, PyObject **obj_indptr, PyObject **obj_indices, PyObject **obj_data)
 
 // For BaseArrays 1d and 2d
 #define EXTERN_BASE(BASEARRAY_TYPE, BASEARRAY2D_TYPE, BASEARRAY_LIST1D_TYPE, BASEARRAY_LIST2D_TYPE, BASEARRAY2D_LIST1D_TYPE, BASEARRAY2D_LIST2D_TYPE) \
-    extern DLL_PUBLIC bool BuildFromPyObj_##BASEARRAY2D_TYPE(PyObject *obj, BASEARRAY2D_TYPE *result); \
-    extern DLL_PUBLIC bool BuildFromPyObj_##BASEARRAY_TYPE(PyObject *obj, BASEARRAY_TYPE *result); \
-    extern DLL_PUBLIC bool BuildFromPyObj_List1d_##BASEARRAY_TYPE(PyObject *obj, BASEARRAY_LIST1D_TYPE &list); \
-    extern DLL_PUBLIC bool BuildFromPyObj_List2d_##BASEARRAY_TYPE(PyObject *obj, BASEARRAY_LIST2D_TYPE &list); \
-    extern DLL_PUBLIC bool BuildFromPyObj_List1d_##BASEARRAY2D_TYPE(PyObject *obj, BASEARRAY2D_LIST1D_TYPE &list); \
-    extern DLL_PUBLIC bool BuildFromPyObj_List2d_##BASEARRAY2D_TYPE(PyObject *obj, BASEARRAY2D_LIST2D_TYPE &list)
+    DLL_PUBLIC bool BuildFromPyObj_##BASEARRAY2D_TYPE(PyObject *obj, BASEARRAY2D_TYPE *result); \
+    DLL_PUBLIC bool BuildFromPyObj_##BASEARRAY_TYPE(PyObject *obj, BASEARRAY_TYPE *result); \
+    DLL_PUBLIC bool BuildFromPyObj_List1d_##BASEARRAY_TYPE(PyObject *obj, BASEARRAY_LIST1D_TYPE &list); \
+    DLL_PUBLIC bool BuildFromPyObj_List2d_##BASEARRAY_TYPE(PyObject *obj, BASEARRAY_LIST2D_TYPE &list); \
+    DLL_PUBLIC bool BuildFromPyObj_List1d_##BASEARRAY2D_TYPE(PyObject *obj, BASEARRAY2D_LIST1D_TYPE &list); \
+    DLL_PUBLIC bool BuildFromPyObj_List2d_##BASEARRAY2D_TYPE(PyObject *obj, BASEARRAY2D_LIST2D_TYPE &list)
 
 
 
 // For SBaseArrays
 #define EXTERN_SBASE(SBASEARRAYPTR_TYPE, SBASEARRAY2DPTR_TYPE, SBASEARRAYPTR_LIST1D_TYPE, SBASEARRAYPTR_LIST2D_TYPE, SBASEARRAY2DPTR_LIST1D_TYPE, SBASEARRAY2DPTR_LIST2D_TYPE) \
-extern DLL_PUBLIC bool BuildFromPyObj_##SBASEARRAYPTR_TYPE(PyObject *obj, SBASEARRAYPTR_TYPE *result); \
-extern DLL_PUBLIC bool BuildFromPyObj_##SBASEARRAY2DPTR_TYPE(PyObject *obj, SBASEARRAY2DPTR_TYPE *result); \
-extern DLL_PUBLIC bool BuildFromPyObj_##SBASEARRAYPTR_TYPE(PyObject *obj, SBASEARRAYPTR_TYPE *result); \
-extern DLL_PUBLIC bool BuildFromPyObj_##SBASEARRAY2DPTR_TYPE(PyObject *obj, SBASEARRAY2DPTR_TYPE *result); \
-extern DLL_PUBLIC bool BuildFromPyObj_List1d_##SBASEARRAYPTR_TYPE(PyObject *obj, SBASEARRAYPTR_LIST1D_TYPE &list); \
-extern DLL_PUBLIC bool BuildFromPyObj_List2d_##SBASEARRAYPTR_TYPE(PyObject *obj, SBASEARRAYPTR_LIST2D_TYPE &list); \
-extern DLL_PUBLIC bool BuildFromPyObj_List1d_##SBASEARRAY2DPTR_TYPE(PyObject *obj, SBASEARRAY2DPTR_LIST1D_TYPE &list); \
-extern DLL_PUBLIC bool BuildFromPyObj_List2d_##SBASEARRAY2DPTR_TYPE(PyObject *obj, SBASEARRAY2DPTR_LIST2D_TYPE &list)
+    DLL_PUBLIC bool BuildFromPyObj_##SBASEARRAYPTR_TYPE(PyObject *obj, SBASEARRAYPTR_TYPE *result); \
+    DLL_PUBLIC bool BuildFromPyObj_##SBASEARRAY2DPTR_TYPE(PyObject *obj, SBASEARRAY2DPTR_TYPE *result); \
+    DLL_PUBLIC bool BuildFromPyObj_##SBASEARRAYPTR_TYPE(PyObject *obj, SBASEARRAYPTR_TYPE *result); \
+    DLL_PUBLIC bool BuildFromPyObj_##SBASEARRAY2DPTR_TYPE(PyObject *obj, SBASEARRAY2DPTR_TYPE *result); \
+    DLL_PUBLIC bool BuildFromPyObj_List1d_##SBASEARRAYPTR_TYPE(PyObject *obj, SBASEARRAYPTR_LIST1D_TYPE &list); \
+    DLL_PUBLIC bool BuildFromPyObj_List2d_##SBASEARRAYPTR_TYPE(PyObject *obj, SBASEARRAYPTR_LIST2D_TYPE &list); \
+    DLL_PUBLIC bool BuildFromPyObj_List1d_##SBASEARRAY2DPTR_TYPE(PyObject *obj, SBASEARRAY2DPTR_LIST1D_TYPE &list); \
+    DLL_PUBLIC bool BuildFromPyObj_List2d_##SBASEARRAY2DPTR_TYPE(PyObject *obj, SBASEARRAY2DPTR_LIST2D_TYPE &list)
 
 
 // For SArrays
 #define EXTERN_SARRAY(SARRAY_TYPE, SARRAYPTR_TYPE, SARRAY2D_TYPE, SARRAY2DPTR_TYPE, SARRAYPTR_LIST1D_TYPE, SARRAYPTR_LIST2D_TYPE, SARRAY2DPTR_LIST1D_TYPE, SARRAY2DPTR_LIST2D_TYPE, ARRAY_TYPE) \
-    extern DLL_PUBLIC PyObject *BuildPyListFromXArrayPtrList1D_##SARRAY_TYPE(SARRAYPTR_LIST1D_TYPE &list); \
-    extern DLL_PUBLIC PyObject *BuildPyListFromXArrayPtrList2D_##SARRAY_TYPE(SARRAYPTR_LIST2D_TYPE &list); \
-    extern DLL_PUBLIC PyObject *_XArray2NumpyArray(SARRAY_TYPE *sig); \
-    extern DLL_PUBLIC bool BuildFromPyObj_##SARRAY_TYPE(PyObject *obj, SARRAYPTR_TYPE *result); \
-    extern DLL_PUBLIC bool BuildFromPyObj_List1d_##SARRAY_TYPE(PyObject *obj, SARRAYPTR_LIST1D_TYPE &list); \
-    extern DLL_PUBLIC bool BuildFromPyObj_List2d_##SARRAY_TYPE(PyObject *obj, SARRAYPTR_LIST2D_TYPE &list); \
-    extern DLL_PUBLIC bool BuildFromPyObj_##SARRAY2D_TYPE(PyObject *obj, SARRAY2DPTR_TYPE *result); \
-    extern DLL_PUBLIC bool BuildFromPyObj_List1d_##SARRAY2D_TYPE(PyObject *obj, SARRAY2DPTR_LIST1D_TYPE &list); \
-    extern DLL_PUBLIC bool BuildFromPyObj_List2d_##SARRAY2D_TYPE(PyObject *obj, SARRAY2DPTR_LIST2D_TYPE &list)
+    DLL_PUBLIC PyObject *BuildPyListFromXArrayPtrList1D_##SARRAY_TYPE(SARRAYPTR_LIST1D_TYPE &list); \
+    DLL_PUBLIC PyObject *BuildPyListFromXArrayPtrList2D_##SARRAY_TYPE(SARRAYPTR_LIST2D_TYPE &list); \
+    DLL_PUBLIC PyObject *_XArray2NumpyArray(SARRAY_TYPE *sig); \
+    DLL_PUBLIC bool BuildFromPyObj_##SARRAY_TYPE(PyObject *obj, SARRAYPTR_TYPE *result); \
+    DLL_PUBLIC bool BuildFromPyObj_List1d_##SARRAY_TYPE(PyObject *obj, SARRAYPTR_LIST1D_TYPE &list); \
+    DLL_PUBLIC bool BuildFromPyObj_List2d_##SARRAY_TYPE(PyObject *obj, SARRAYPTR_LIST2D_TYPE &list); \
+    DLL_PUBLIC bool BuildFromPyObj_##SARRAY2D_TYPE(PyObject *obj, SARRAY2DPTR_TYPE *result); \
+    DLL_PUBLIC bool BuildFromPyObj_List1d_##SARRAY2D_TYPE(PyObject *obj, SARRAY2DPTR_LIST1D_TYPE &list); \
+    DLL_PUBLIC bool BuildFromPyObj_List2d_##SARRAY2D_TYPE(PyObject *obj, SARRAY2DPTR_LIST2D_TYPE &list)
 
 // For SSparseArrays
 #define EXTERN_SSPARSEARRAY(SSPARSEARRAY_TYPE, SSPARSEARRAYPTR_TYPE, SSPARSEARRAY2D_TYPE, SSPARSEARRAY2DPTR_TYPE) \
-    extern DLL_PUBLIC bool BuildFromPyObj_##SSPARSEARRAY_TYPE(PyObject *obj, SSPARSEARRAYPTR_TYPE *result); \
-    extern DLL_PUBLIC int TypeCheckPyObj_##SSPARSEARRAY_TYPE(PyObject *obj); \
-    extern DLL_PUBLIC bool BuildFromPyObj_##SSPARSEARRAY_TYPE(PyObject *obj, SSPARSEARRAYPTR_TYPE *result); \
-    extern DLL_PUBLIC int TypeCheckPyObj_##SSPARSEARRAY_TYPE(PyObject *obj); \
-    extern DLL_PUBLIC bool BuildFromPyObj_##SSPARSEARRAY2D_TYPE(PyObject *obj, SSPARSEARRAY2DPTR_TYPE *result); \
-    extern DLL_PUBLIC int TypeCheckPyObj_##SSPARSEARRAY2D_TYPE(PyObject *obj)
+    DLL_PUBLIC bool BuildFromPyObj_##SSPARSEARRAY_TYPE(PyObject *obj, SSPARSEARRAYPTR_TYPE *result); \
+    DLL_PUBLIC int TypeCheckPyObj_##SSPARSEARRAY_TYPE(PyObject *obj); \
+    DLL_PUBLIC bool BuildFromPyObj_##SSPARSEARRAY_TYPE(PyObject *obj, SSPARSEARRAYPTR_TYPE *result); \
+    DLL_PUBLIC int TypeCheckPyObj_##SSPARSEARRAY_TYPE(PyObject *obj); \
+    DLL_PUBLIC bool BuildFromPyObj_##SSPARSEARRAY2D_TYPE(PyObject *obj, SSPARSEARRAY2DPTR_TYPE *result); \
+    DLL_PUBLIC int TypeCheckPyObj_##SSPARSEARRAY2D_TYPE(PyObject *obj)
 
 
 // For VArrays
 #define EXTERN_VARRAY(VARRAY_TYPE, VARRAYPTR_TYPE, VARRAYPTR_LIST1D_TYPE, VARRAYPTR_LIST2D_TYPE, ARRAY_TYPE) \
-    extern DLL_PUBLIC PyObject *BuildPyListFromXArrayPtrList1D_##VARRAY_TYPE(VARRAYPTR_LIST1D_TYPE &list); \
-    extern DLL_PUBLIC PyObject *BuildPyListFromXArrayPtrList2D_##VARRAY_TYPE(VARRAYPTR_LIST2D_TYPE &list); \
-    extern DLL_PUBLIC PyObject *_XArray2NumpyArray(VARRAY_TYPE *sig); \
-    extern DLL_PUBLIC bool BuildFromPyObj_##VARRAY_TYPE(PyObject *obj, VARRAYPTR_TYPE *result); \
-    extern DLL_PUBLIC bool BuildFromPyObj_List1d_##VARRAY_TYPE(PyObject *obj, VARRAYPTR_LIST1D_TYPE &list); \
-    extern DLL_PUBLIC bool BuildFromPyObj_List2d_##VARRAY_TYPE(PyObject *obj, VARRAYPTR_LIST2D_TYPE &list);
+    DLL_PUBLIC PyObject *BuildPyListFromXArrayPtrList1D_##VARRAY_TYPE(VARRAYPTR_LIST1D_TYPE &list); \
+    DLL_PUBLIC PyObject *BuildPyListFromXArrayPtrList2D_##VARRAY_TYPE(VARRAYPTR_LIST2D_TYPE &list); \
+    DLL_PUBLIC PyObject *_XArray2NumpyArray(VARRAY_TYPE *sig); \
+    DLL_PUBLIC bool BuildFromPyObj_##VARRAY_TYPE(PyObject *obj, VARRAYPTR_TYPE *result); \
+    DLL_PUBLIC bool BuildFromPyObj_List1d_##VARRAY_TYPE(PyObject *obj, VARRAYPTR_LIST1D_TYPE &list); \
+    DLL_PUBLIC bool BuildFromPyObj_List2d_##VARRAY_TYPE(PyObject *obj, VARRAYPTR_LIST2D_TYPE &list);
 
 
 

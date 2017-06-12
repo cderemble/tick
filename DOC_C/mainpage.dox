@@ -144,7 +144,7 @@ Python
  \code
  // File test.h
  
- extern double test_array_double(ArrayDouble &array);
+ double test_array_double(ArrayDouble &array);
  \endcode
  Then a SWIG interface file
  \code{.unparsed}
@@ -187,7 +187,7 @@ Here is an example with lists
 \code
  // File test_list.h
  
- extern double test_list_array_double(ArrayDoubleList1D &array_list);
+ double test_list_array_double(ArrayDoubleList1D &array_list);
  \endcode
  The SWIG interface file
  \code{.unparsed}
@@ -328,7 +328,7 @@ Let's make the last code a Python extension using SWIG. You first need a .h file
 \code
 // File test.h
 
-extern double test_varrayptr_double(VArrayDoublePtr array);
+double test_varrayptr_double(VArrayDoublePtr array);
 \endcode
 Then a SWIG interface file
 \code{.unparsed}

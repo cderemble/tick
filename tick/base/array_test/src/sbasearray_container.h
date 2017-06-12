@@ -11,12 +11,12 @@
 
 #include "base.h"
 
-extern void test_sbasearray_container_new(SBaseArrayDoublePtr a);
-extern void test_sbasearray_container_clear();
-extern double test_sbasearray_container_compute();
+void test_sbasearray_container_new(SBaseArrayDoublePtr a);
+void test_sbasearray_container_clear();
+double test_sbasearray_container_compute();
 
-extern void test_sbasearray2d_container_new(SBaseArrayDouble2dPtr a);
-extern void test_sbasearray2d_container_clear();
-extern double test_sbasearray2d_container_compute();
+void test_sbasearray2d_container_new(SBaseArrayDouble2dPtr a);
+void test_sbasearray2d_container_clear();
+double test_sbasearray2d_container_compute();
 
 #endif  // TICK_BASE_ARRAY_TEST_SRC_SBASEARRAY_CONTAINER_H_
