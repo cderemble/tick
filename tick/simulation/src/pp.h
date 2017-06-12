@@ -1,11 +1,11 @@
 #ifndef TICK_SIMULATION_SRC_PP_H_
 #define TICK_SIMULATION_SRC_PP_H_
 
-#include <rand.h>
+#include <cereal/types/vector.hpp>
+
 #include "rand.h"
 #include "varray.h"
 
-#include <cereal/types/vector.hpp>
 
 /*! \class PP
  * \brief (Purely virtual) The name of this class stands for Point Processes.

@@ -3,6 +3,8 @@
 
 /** @file */
 
+#include <vector>
+
 #include "defs.h"
 #include "alloc.h"
 
@@ -124,8 +126,6 @@ Array<T> BaseArray<T>::as_array() {
 //  The various instances of this template
 //
 /////////////////////////////////////////////////////////////////
-
-#include <vector>
 
 /**
  * \defgroup Array_typedefs_mod Array related typedef

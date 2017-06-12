@@ -3,10 +3,9 @@
 #define TICK_SIMULATION_SRC_HAWKES_KERNELS_HAWKES_KERNEL_H_
 
 #include <memory>
-#include "sarray.h"
-
 #include <cereal/types/polymorphic.hpp>
 #include <cereal/types/base_class.hpp>
+#include "sarray.h"
 
 /**
  * @class HawkesKernel

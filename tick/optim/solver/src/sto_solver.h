@@ -6,7 +6,7 @@
 #define TICK_OPTIM_SOLVER_SRC_STO_SOLVER_H_
 
 #include "base.h"
-#include <rand.h>
+#include "rand.h"
 #include "model.h"
 #include "prox.h"
 

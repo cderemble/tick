@@ -17,10 +17,11 @@
     WILL NOT BE LIABLE FOR DATA LOSS, DAMAGES, LOSS OF PROFITS OR
     ANY OTHER KIND OF LOSS WHILE USING OR MISUSING THIS SOFTWARE.
 -------------------------------------------------------------- */
+#include "t2exp.h"      /* Header file for t2exp function */
+
 #include <cmath>       /* Header file for standard math functions */
 #include <cstdio>      /* Header file for standard io functions */
 #include <cstdint>
-#include "t2exp.h"      /* Header file for t2exp function */
 
 
 /* --------------------------------------------------------------

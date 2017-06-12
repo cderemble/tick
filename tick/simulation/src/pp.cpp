@@ -1,5 +1,6 @@
-#include <float.h>
+
 #include "pp.h"
+#include <cfloat>
 
 // Constructor
 PP::PP(unsigned int n_nodes, int seed)

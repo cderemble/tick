@@ -5,9 +5,10 @@
 #ifndef TICK_LONGITUDINAL_FEATURES_LAGGER_H
 #define TICK_LONGITUDINAL_FEATURES_LAGGER_H
 
-#include "base.h"
 #include <cereal/types/polymorphic.hpp>
 #include <cereal/types/base_class.hpp>
+
+#include "base.h"
 
 class LongitudinalFeaturesLagger {
 

@@ -17,12 +17,13 @@
     WILL NOT BE LIABLE FOR DATA LOSS, DAMAGES, LOSS OF PROFITS OR
     ANY OTHER KIND OF LOSS WHILE USING OR MISUSING THIS SOFTWARE.
 -------------------------------------------------------------- */
-#include <cmath>
 
 #ifndef TICK_BASE_SRC_MATH_T2EXP_H_
 #define TICK_BASE_SRC_MATH_T2EXP_H_
 
 #include "defs.h"
+
+#include <cmath>
 
 /* --------------------------------------------------------------
     Name:       t2exp

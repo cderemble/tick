@@ -5,10 +5,11 @@
 
 #include <cmath>
 #include <memory>
+#include <cereal/cereal.hpp>
+
 #include "array.h"
 #include "sarray.h"
 
-#include <cereal/cereal.hpp>
 
 // TODO: Do an abstract class... then small classes for constant TF, interpolated, dichotomic...
 

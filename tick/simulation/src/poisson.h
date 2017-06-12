@@ -9,9 +9,11 @@
 #ifndef TICK_SIMULATION_SRC_POISSON_H_
 #define TICK_SIMULATION_SRC_POISSON_H_
 
+#include <numeric>
+
 #include "time_func.h"
 #include "pp.h"
-#include <numeric>
+
 
 /*! \class Poisson
  * \brief This is the class of constant Poisson processes

@@ -6,9 +6,9 @@
 #define Py_END_ALLOW_THREADS
 #endif
 
+#include <algorithm>
 #include "array.h"
 
-#include <algorithm>
 
 // The non parametric estimation is based on the following quantities :
 //

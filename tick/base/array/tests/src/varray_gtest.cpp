@@ -1,10 +1,13 @@
+
+#include "varray.h"
+
 #include <algorithm>
 
 #define DEBUG_COSTLY_THROW 1
 #define XDATA_TEST_DATA_SIZE (100)
 
 #include <gtest/gtest.h>
-#include <varray.h>
+
 
 TEST(VArray, Append1) {
     VArrayDouble arr(0);

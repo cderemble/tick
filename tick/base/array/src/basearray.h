@@ -1,6 +1,8 @@
 #ifndef TICK_BASE_ARRAY_SRC_BASEARRAY_H_
 #define TICK_BASE_ARRAY_SRC_BASEARRAY_H_
 
+#include <vector>
+
 #include "abstractarray1d2d.h"
 
 template<typename T>
@@ -144,8 +146,6 @@ void BaseArray<T>::_print_sparse() const {
 //  The various instances of this template
 //
 /////////////////////////////////////////////////////////////////
-
-#include <vector>
 
 /**
  * \defgroup Array_typedefs_mod Array related typedef

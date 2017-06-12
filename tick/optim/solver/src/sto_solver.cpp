@@ -3,8 +3,8 @@
 //
 
 #include "sto_solver.h"
+#include "prox_zero.h"
 
-#include <prox_zero.h>
 
 StoSolver::StoSolver(int seed)
     : seed(seed) {

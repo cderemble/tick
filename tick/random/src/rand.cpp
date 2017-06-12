@@ -13,11 +13,11 @@
 //
 //
 
+#include "rand.h"
 
 #include <iostream>
 #include <random>
 
-#include "rand.h"
 
 Rand::Rand(int seed)
     : seed(seed) {

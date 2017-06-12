@@ -5,10 +5,11 @@
 #ifndef TICK_OPTIM_MODEL_SRC_LINREG_H_
 #define TICK_OPTIM_MODEL_SRC_LINREG_H_
 
+#include <cereal/types/base_class.hpp>
+
 #include "model_generalized_linear.h"
 #include "model_lipschitz.h"
 
-#include <cereal/types/base_class.hpp>
 
 class ModelLinReg : public ModelGeneralizedLinear, public ModelLipschitz {
  public:

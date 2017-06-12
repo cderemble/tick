@@ -3,14 +3,14 @@
 
 /** @file */
 
-#include "defs.h"
-#include "alloc.h"
-
 #include <iostream>
 #include <memory>
 #include <vector>
 #include <algorithm>
 #include <cmath>
+
+#include "defs.h"
+#include "alloc.h"
 #include "basearray.h"
 
 //////////////////////////////////////////////////////////////////////////////////////////////////

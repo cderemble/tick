@@ -5,11 +5,11 @@
 #ifndef TICK_OPTIM_MODEL_SRC_MODEL_H_
 #define TICK_OPTIM_MODEL_SRC_MODEL_H_
 
-#include "base.h"
-
+#include <iostream>
 #include <cereal/cereal.hpp>
 
-#include <iostream>
+#include "base.h"
+
 
 // TODO: Model "data" : ModeLabelsFeatures, Model,Model pour les Hawkes
 

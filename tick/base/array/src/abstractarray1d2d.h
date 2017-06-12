@@ -10,12 +10,13 @@
 #define TICK_BASE_ARRAY_SRC_ABSTRACTARRAY1D2D_H_
 
 #include <cstring>
+#include <cereal/types/base_class.hpp>
+#include <cereal/cereal.hpp>
+
 
 #include "vector_operations.h"
 #include "promote.h"
 
-#include <cereal/types/base_class.hpp>
-#include <cereal/cereal.hpp>
 
 // This macro defines the type to be used for indices of sparse arrays.
 // In python the scipy csr_matrix uses NPY_INT32 to code them

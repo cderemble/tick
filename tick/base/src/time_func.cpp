@@ -2,8 +2,9 @@
 // Created by Martin Bompaire on 08/06/15.
 //
 
-#include <float.h>
 #include "time_func.h"
+#include <cfloat>
+
 
 const double floor_threshold = 1e-10;
 

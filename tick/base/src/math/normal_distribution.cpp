@@ -2,8 +2,9 @@
 // Created by Martin Bompaire on 11/04/16.
 //
 
-#include <cmath>
 #include "normal_distribution.h"
+#include <cmath>
+
 
 // Standard Gaussian cumulative density function, based on
 // Handbook of Mathematical Functions
