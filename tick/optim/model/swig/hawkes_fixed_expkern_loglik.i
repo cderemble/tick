@@ -13,7 +13,7 @@ class ModelHawkesFixedExpKernLogLik : public Model {
 
   void compute_weights();
 
-  inline unsigned long get_rand_max() const;
+  inline ulong get_rand_max() const;
 
   double loss_and_grad(const ArrayDouble &coeffs, ArrayDouble &out_grad);
   double hessian_norm(const ArrayDouble &coeffs, const ArrayDouble &vector);

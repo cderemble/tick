@@ -10,7 +10,7 @@ class SDCA : public StoSolver {
 public:
 
     SDCA(double l_l2sq,
-         unsigned long epoch_size = 0,
+         ulong epoch_size = 0,
          double tol = 0.,
          RandType rand_type = RandType::unif,
          int seed = -1);

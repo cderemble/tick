@@ -28,43 +28,43 @@
                       SBASEARRAY2DPTR_LIST1D_TYPE, SBASEARRAY2DPTR_LIST2D_TYPE) \
     \
     /******************************** TYPEMAP IN ********************************/ \
-    extern TYPE test_typemap_in_##ARRAY_TYPE(ARRAY_TYPE & array); \
-    extern TYPE test_typemap_in_##ARRAY2D_TYPE(ARRAY2D_TYPE & array2d); \
-    extern TYPE test_typemap_in_##ARRAYLIST1D_TYPE(ARRAYLIST1D_TYPE & array_list); \
-    extern TYPE test_typemap_in_##ARRAYLIST2D_TYPE(ARRAYLIST2D_TYPE & array_list_list); \
+    extern tick::promote_t<TYPE> test_typemap_in_##ARRAY_TYPE(ARRAY_TYPE & array); \
+    extern tick::promote_t<TYPE> test_typemap_in_##ARRAY2D_TYPE(ARRAY2D_TYPE & array2d); \
+    extern tick::promote_t<TYPE> test_typemap_in_##ARRAYLIST1D_TYPE(ARRAYLIST1D_TYPE & array_list); \
+    extern tick::promote_t<TYPE> test_typemap_in_##ARRAYLIST2D_TYPE(ARRAYLIST2D_TYPE & array_list_list); \
     \
-    extern TYPE test_typemap_in_##SPARSEARRAY_TYPE(SPARSEARRAY_TYPE & sparse_array); \
-    extern TYPE test_typemap_in_##SPARSEARRAY2D_TYPE(SPARSEARRAY2D_TYPE & sparse_array2d); \
+    extern tick::promote_t<TYPE> test_typemap_in_##SPARSEARRAY_TYPE(SPARSEARRAY_TYPE & sparse_array); \
+    extern tick::promote_t<TYPE> test_typemap_in_##SPARSEARRAY2D_TYPE(SPARSEARRAY2D_TYPE & sparse_array2d); \
     \
-    extern TYPE test_typemap_in_##SARRAYPTR_TYPE(SARRAYPTR_TYPE sarray); \
-    extern TYPE test_typemap_in_##SARRAY2DPTR_TYPE(SARRAY2DPTR_TYPE sarray2d); \
-    extern TYPE test_typemap_in_##SARRAYPTRLIST1D_TYPE(SARRAYPTRLIST1D_TYPE & sarray_list); \
-    extern TYPE test_typemap_in_##SARRAYPTRLIST2D_TYPE(SARRAYPTRLIST2D_TYPE & sarray_list_list); \
-    extern TYPE test_typemap_in_##SARRAY2DPTR_LIST1D_TYPE(SARRAY2DPTR_LIST1D_TYPE & sarray2d_list); \
-    extern TYPE test_typemap_in_##SARRAY2DPTR_LIST2D_TYPE(SARRAY2DPTR_LIST2D_TYPE & sarray2d_list_list); \
+    extern tick::promote_t<TYPE> test_typemap_in_##SARRAYPTR_TYPE(SARRAYPTR_TYPE sarray); \
+    extern tick::promote_t<TYPE> test_typemap_in_##SARRAY2DPTR_TYPE(SARRAY2DPTR_TYPE sarray2d); \
+    extern tick::promote_t<TYPE> test_typemap_in_##SARRAYPTRLIST1D_TYPE(SARRAYPTRLIST1D_TYPE & sarray_list); \
+    extern tick::promote_t<TYPE> test_typemap_in_##SARRAYPTRLIST2D_TYPE(SARRAYPTRLIST2D_TYPE & sarray_list_list); \
+    extern tick::promote_t<TYPE> test_typemap_in_##SARRAY2DPTR_LIST1D_TYPE(SARRAY2DPTR_LIST1D_TYPE & sarray2d_list); \
+    extern tick::promote_t<TYPE> test_typemap_in_##SARRAY2DPTR_LIST2D_TYPE(SARRAY2DPTR_LIST2D_TYPE & sarray2d_list_list); \
     \
-    extern TYPE test_typemap_in_##VARRAYPTR_TYPE(VARRAYPTR_TYPE varray); \
-    extern TYPE test_typemap_in_##VARRAYPTRLIST1D_TYPE(VARRAYPTRLIST1D_TYPE & varray_list); \
-    extern TYPE test_typemap_in_##VARRAYPTRLIST2D_TYPE(VARRAYPTRLIST2D_TYPE & varray_list_list); \
+    extern tick::promote_t<TYPE> test_typemap_in_##VARRAYPTR_TYPE(VARRAYPTR_TYPE varray); \
+    extern tick::promote_t<TYPE> test_typemap_in_##VARRAYPTRLIST1D_TYPE(VARRAYPTRLIST1D_TYPE & varray_list); \
+    extern tick::promote_t<TYPE> test_typemap_in_##VARRAYPTRLIST2D_TYPE(VARRAYPTRLIST2D_TYPE & varray_list_list); \
     \
-    extern TYPE test_typemap_in_##BASEARRAY_TYPE(BASEARRAY_TYPE & basearray); \
-    extern TYPE test_typemap_in_##BASEARRAY2D_TYPE(BASEARRAY2D_TYPE & basearray2d); \
+    extern tick::promote_t<TYPE> test_typemap_in_##BASEARRAY_TYPE(BASEARRAY_TYPE & basearray); \
+    extern tick::promote_t<TYPE> test_typemap_in_##BASEARRAY2D_TYPE(BASEARRAY2D_TYPE & basearray2d); \
     \
-    extern TYPE test_typemap_in_##SSPARSEARRAYPTR_TYPE(SSPARSEARRAYPTR_TYPE ssparsearray); \
-    extern TYPE test_typemap_in_##SSPARSEARRAY2DPTR_TYPE(SSPARSEARRAY2DPTR_TYPE ssparsearray2d); \
+    extern tick::promote_t<TYPE> test_typemap_in_##SSPARSEARRAYPTR_TYPE(SSPARSEARRAYPTR_TYPE ssparsearray); \
+    extern tick::promote_t<TYPE> test_typemap_in_##SSPARSEARRAY2DPTR_TYPE(SSPARSEARRAY2DPTR_TYPE ssparsearray2d); \
     \
-    extern TYPE test_typemap_in_##SBASEARRAYPTR_TYPE(SBASEARRAYPTR_TYPE sbasearray); \
-    extern TYPE test_typemap_in_##SBASEARRAY2DPTR_TYPE(SBASEARRAY2DPTR_TYPE sbasearray2d); \
+    extern tick::promote_t<TYPE> test_typemap_in_##SBASEARRAYPTR_TYPE(SBASEARRAYPTR_TYPE sbasearray); \
+    extern tick::promote_t<TYPE> test_typemap_in_##SBASEARRAY2DPTR_TYPE(SBASEARRAY2DPTR_TYPE sbasearray2d); \
     \
-    extern TYPE test_typemap_in_##BASEARRAY_LIST1D_TYPE(BASEARRAY_LIST1D_TYPE & basearray_list); \
-    extern TYPE test_typemap_in_##BASEARRAY_LIST2D_TYPE(BASEARRAY_LIST2D_TYPE & basearray_list_list); \
-    extern TYPE test_typemap_in_##BASEARRAY2D_LIST1D_TYPE(BASEARRAY2D_LIST1D_TYPE & basearray2d_list); \
-    extern TYPE test_typemap_in_##BASEARRAY2D_LIST2D_TYPE(BASEARRAY2D_LIST2D_TYPE & basearray2s_list_list); \
+    extern tick::promote_t<TYPE> test_typemap_in_##BASEARRAY_LIST1D_TYPE(BASEARRAY_LIST1D_TYPE & basearray_list); \
+    extern tick::promote_t<TYPE> test_typemap_in_##BASEARRAY_LIST2D_TYPE(BASEARRAY_LIST2D_TYPE & basearray_list_list); \
+    extern tick::promote_t<TYPE> test_typemap_in_##BASEARRAY2D_LIST1D_TYPE(BASEARRAY2D_LIST1D_TYPE & basearray2d_list); \
+    extern tick::promote_t<TYPE> test_typemap_in_##BASEARRAY2D_LIST2D_TYPE(BASEARRAY2D_LIST2D_TYPE & basearray2s_list_list); \
     \
-    extern TYPE test_typemap_in_##SBASEARRAYPTR_LIST1D_TYPE(SBASEARRAYPTR_LIST1D_TYPE & sbasearray_list); \
-    extern TYPE test_typemap_in_##SBASEARRAYPTR_LIST2D_TYPE(SBASEARRAYPTR_LIST2D_TYPE & sbasearray_list_list); \
-    extern TYPE test_typemap_in_##SBASEARRAY2DPTR_LIST1D_TYPE(SBASEARRAY2DPTR_LIST1D_TYPE & sbasearray2d_list); \
-    extern TYPE test_typemap_in_##SBASEARRAY2DPTR_LIST2D_TYPE(SBASEARRAY2DPTR_LIST2D_TYPE & sbasearray2d_list_list); \
+    extern tick::promote_t<TYPE> test_typemap_in_##SBASEARRAYPTR_LIST1D_TYPE(SBASEARRAYPTR_LIST1D_TYPE & sbasearray_list); \
+    extern tick::promote_t<TYPE> test_typemap_in_##SBASEARRAYPTR_LIST2D_TYPE(SBASEARRAYPTR_LIST2D_TYPE & sbasearray_list_list); \
+    extern tick::promote_t<TYPE> test_typemap_in_##SBASEARRAY2DPTR_LIST1D_TYPE(SBASEARRAY2DPTR_LIST1D_TYPE & sbasearray2d_list); \
+    extern tick::promote_t<TYPE> test_typemap_in_##SBASEARRAY2DPTR_LIST2D_TYPE(SBASEARRAY2DPTR_LIST2D_TYPE & sbasearray2d_list_list); \
     \
     /******************************** TYPE CHECK ********************************/ \
     /******************************** check function overloading ****************/ \

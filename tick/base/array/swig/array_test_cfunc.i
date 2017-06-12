@@ -80,9 +80,9 @@
 // A macro for creating a function testing if a python object is a sparse array of a specified type
 %define TEST_PYSPARSEARRAY2D(SPARSEARRAY2D_TYPE,C_TYPE,NP_TYPE)
 %{
-    bool TestPyObj_##SPARSEARRAY2D_TYPE(PyObject * obj, unsigned long *n_rows, unsigned long *n_cols,
+    bool TestPyObj_##SPARSEARRAY2D_TYPE(PyObject * obj, ulong *n_rows, ulong *n_cols,
                                           INDICE_TYPE **row_indices, INDICE_TYPE **indices,
-                                          C_TYPE ** data, unsigned long *size_sparse,
+                                          C_TYPE ** data, ulong *size_sparse,
                                           PyObject **obj_indptr1, PyObject **obj_indices1, PyObject **obj_data1) {
 
         if (PyArray_CheckExact(obj)) {

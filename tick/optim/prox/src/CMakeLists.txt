@@ -1,3 +1,5 @@
+add_definitions("-DBUILDING_DLL")
+
 add_library(prox EXCLUDE_FROM_ALL
         prox.cpp prox.h
         prox_separable.cpp prox_separable.h

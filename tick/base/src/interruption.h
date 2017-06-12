@@ -14,9 +14,10 @@
 
 #include "defs.h"
 
-
+#if defined(_MSC_VER)
 class DLL_PUBLIC std::exception;
 template struct DLL_PUBLIC std::atomic<bool>;
+#endif
 
 /*! \class Interruption
  * \brief Exception Class made to handle Ctrl-C interruption

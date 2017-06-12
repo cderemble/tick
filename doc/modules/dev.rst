@@ -292,7 +292,7 @@ Our .cpp implementation looks like:
     }
 
     void ProxL2Sq::call(ArrayDouble &coeffs, double step, ArrayDouble &out) const {
-        for (unsigned long i; i < coeffs.size; ++i)
+        for (size_t i; i < coeffs.size; ++i)
             out[i] = coeffs[i] / (1 + step * strength);
     }
 

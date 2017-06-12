@@ -21,6 +21,7 @@ configure_file(backtrace.in ${CMAKE_CURRENT_SOURCE_DIR}/base/src/backtrace.h)
 if(MSVC)
         add_definitions(-D_SCL_SECURE_NO_WARNINGS -wd4373 -wd4250)
         add_definitions(-D_ITERATOR_DEBUG_LEVEL=0)
+        add_definitions(-D_USE_MATH_DEFINES)
 endif()
 
 include_directories(

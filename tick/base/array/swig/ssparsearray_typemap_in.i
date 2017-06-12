@@ -19,7 +19,7 @@
     // 'result' will hold the resulting array
     DLL_PUBLIC bool BuildFromPyObj_##SSPARSEARRAY2D_TYPE(PyObject *obj, SSPARSEARRAY2DPTR_TYPE *result) {
         
-        unsigned long n_rows, n_cols,size_sparse;
+        ulong n_rows, n_cols,size_sparse;
         C_TYPE *data;
         INDICE_TYPE *row_indices, *indices;
         PyObject *obj_indptr, *obj_indices, *obj_data;
@@ -49,7 +49,7 @@
     // 'result' will hold the resulting array
     DLL_PUBLIC bool BuildFromPyObj_##SSPARSEARRAY_TYPE(PyObject *obj, SSPARSEARRAYPTR_TYPE *result) {
         
-        unsigned long n_rows, n_cols,size_sparse;
+        ulong n_rows, n_cols,size_sparse;
         C_TYPE *data;
         INDICE_TYPE *row_indices, *indices;
         PyObject *obj_indptr, *obj_indices, *obj_data;

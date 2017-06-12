@@ -11,6 +11,6 @@ public:
     ProxPositive(double strength);
 
     ProxPositive(double strength,
-                 unsigned long start,
-                 unsigned long end);
+                 ulong start,
+                 ulong end);
 };

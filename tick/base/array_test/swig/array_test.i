@@ -19,7 +19,7 @@ class VarrayUser {
 public:
     VArrayDoublePtr varrayPtr;
     VarrayUser() {};
-    long nRef();
+    std::int64_t nRef();
     void setArray(VarrayContainer vcc);
 };
 
@@ -27,7 +27,7 @@ class VarrayContainer {
 public:
     VArrayDoublePtr varrayPtr;
     VarrayContainer() {};
-    long nRef();
+    std::int64_t nRef();
     void initVarray();
     void initVarray(int size);
 };

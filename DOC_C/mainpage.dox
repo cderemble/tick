@@ -76,7 +76,7 @@ Here is an example of a function using an Array as an input
  {
 	  double sum = 0;
 
-	  for (long i=0; i<array.size(); i++)
+	  for (size_t i=0; i<array.size(); i++)
 		  sum += array[i];
 
 	  return(sum);
@@ -96,7 +96,7 @@ method for getting a Array view on a single row. Here is an example
 	  double sum = 0;
 	  ArrayDouble row = array.view_row(i);
 
-	  for (long i=0; i<row.size(); i++)
+	  for (size_t i=0; i<row.size(); i++)
 		  sum += row[i];
 
 	  return(sum);
@@ -174,8 +174,8 @@ Here is an example with lists
  double test_list_array_double(ArrayDoubleList1D &array_list)
  {
  	double sum = 0;
- 	for (int i =0; i<array_list.size(); i++) {
- 		for (long j=0;j<array_list[0].get_size(); j++) {
+ 	for (size_t i = 0; i<array_list.size(); i++) {
+ 		for (size_t j=0;j<array_list[0].size(); j++) {
  			sum += array_list[0][j];
  		}
  	}
@@ -247,7 +247,7 @@ It is very simple
 static SArrayDoublePtr reference; // We can keep a refence in the C++ code it is not a problem
 SArrayDoublePtr  f (SArrayDoublePtr sarray, double factor)
 {
-	for (long i=0;i<sarray->size();i++) {
+	for (size_t i=0;i<sarray->size();i++) {
 		(*sarray)[i] *= factor;
 	}
 	reference = sarray;
@@ -261,7 +261,7 @@ SArrayDoublePtr  f (SArrayDoublePtr sarray, double factor)
 {
 	ArrayDouble a = sarray->view(); // No copy of the data
 
-	for (long i=0;i<a.get_size();i++) {
+	for (size_t i=0;i<a.size();i++) {
 		a[i] *= factor;
 	}
 	reference = sarray;
@@ -278,7 +278,7 @@ Indeed, it would lead to a useless copy of the data
 static SArrayDoublePtr reference; // We can keep a refence in the C++ code it is not a problem
 SArrayDoublePtr  f (ArrayDouble &a, double factor)
 {
-	for (long i=0;i<a.get_size();i++) {
+	for (size_t i=0;i<a.size();i++) {
 		a[i] *= factor;
 	}
 	reference = SArrayDouble::new_ptr(a); // HERE WE COPY THE DATA !
@@ -316,7 +316,7 @@ double test_varrayptr_double(VArrayDoublePtr varrayptr)
 {
     varrayptr->set_size(varrayptr->size()*2,true);
 
-    for (unsigned long i=0; i<varrayptr->size(); i++)
+    for (size_t i=0; i<varrayptr->size(); i++)
         varrayptr[i+varrayptr->size()] = varrayptr[i];
 
     return(varrayptr);
@@ -439,7 +439,7 @@ class TestInterrupt {
 
     TestInterrupt() {};
 
-    void test(unsigned long i) {
+    void test(size_t i) {
         int res = 0;
         for (int j = 0; j< 1000000; j++) {
             Interruption::throw_if_raised();
@@ -474,7 +474,7 @@ class TestInterrupt {
 
     TestInterrupt() {};
 
-    void test(unsigned long i) {
+    void test(size_t i) {
         int res = 0;
         for (int j = 0; j< 1000000; j++) {
             Interruption::throw_if_raised();

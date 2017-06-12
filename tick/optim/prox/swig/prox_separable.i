@@ -10,6 +10,6 @@ public:
     ProxSeparable(double strength);
 
     ProxSeparable(double strength,
-                  unsigned long start,
-                  unsigned long end);
+                  ulong start,
+                  ulong end);
 };

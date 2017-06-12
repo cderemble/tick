@@ -10,7 +10,7 @@ class ModelGeneralizedLinear : public ModelLabelsFeatures {
                          const bool fit_intercept,
                          const int n_threads = 1);
 
-  unsigned long get_n_coeffs() const override;
+  ulong get_n_coeffs() const override;
 
   virtual void set_fit_intercept(bool fit_intercept);
 };

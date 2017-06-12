@@ -20,7 +20,7 @@
     // 'result' will hold the resulting array
     DLL_PUBLIC bool BuildFromPyObj_##SPARSEARRAY2D_TYPE(PyObject *obj, SPARSEARRAY2D_TYPE *result) {
 
-        unsigned long n_rows, n_cols,size_sparse;
+        ulong n_rows, n_cols,size_sparse;
         C_TYPE *data;
         INDICE_TYPE *row_indices, *indices;
         PyObject *obj_indptr, *obj_indices, *obj_data;
@@ -52,7 +52,7 @@
     // 'result' will hold the resulting array
     DLL_PUBLIC bool BuildFromPyObj_##SPARSEARRAY_TYPE(PyObject *obj, SPARSEARRAY_TYPE *result) {
 
-        unsigned long n_rows, n_cols,size_sparse;
+        ulong n_rows, n_cols,size_sparse;
         C_TYPE *data;
         INDICE_TYPE *row_indices, *indices;
         PyObject *obj_indptr, *obj_indices, *obj_data;

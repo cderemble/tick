@@ -94,7 +94,7 @@ TimeFunction::TimeFunction(const ArrayDouble &T, const ArrayDouble &Y,
   double t = t0;
 
   // Index of the left point selected
-  long index_left = 0;
+  ulong index_left = 0;
   // initialize with the first two points
   double t_left = T[index_left];
   double y_left = Y[index_left];
@@ -102,7 +102,7 @@ TimeFunction::TimeFunction(const ArrayDouble &T, const ArrayDouble &Y,
   double y_right = Y[index_left + 1];
 
   for (ulong i = 0; i < sampled_y->size(); ++i) {
-    while (t > t_right + floor_threshold && index_left < size - 2) {
+    while (t > t_right + floor_threshold && index_left + 2 < size) {
       // Ensure we are not behind the last point. This might happen if dt does not divides length
       // In this case we keep the last two points to interpolate
       index_left += 1;

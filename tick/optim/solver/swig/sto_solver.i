@@ -19,7 +19,7 @@ class StoSolver {
 
 public:
 
-    StoSolver(unsigned long epoch_size,
+    StoSolver(ulong epoch_size,
               double tol,
               RandType rand_type);
 
@@ -34,14 +34,14 @@ public:
     inline void set_tol(double tol);
     inline double get_tol() const;
 
-    inline void set_epoch_size(unsigned long epoch_size);
-    inline unsigned long get_epoch_size() const;
+    inline void set_epoch_size(ulong epoch_size);
+    inline ulong get_epoch_size() const;
 
     inline void set_rand_type(RandType rand_type);
     inline RandType get_rand_type() const;
 
-    inline void set_rand_max(unsigned long rand_max);
-    inline unsigned long get_rand_max() const;
+    inline void set_rand_max(ulong rand_max);
+    inline ulong get_rand_max() const;
 
     virtual void set_model(std::shared_ptr<Model> model);
 

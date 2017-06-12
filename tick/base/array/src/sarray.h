@@ -269,7 +269,9 @@ std::shared_ptr<SArray<T>> Array<T>::as_sarray_ptr() {
  * @}
  */
 
+#if defined(_MSC_VER)
 template class DLL_PUBLIC SArray<double>;
+#endif
 
 /** @defgroup sarray_sub_mod The instantiations of the SArray template
  *  @ingroup SArray_typedefs_mod
@@ -289,7 +291,9 @@ typedef SArray<ulong> SArrayULong;
  * @}
  */
 
+#if defined(_MSC_VER)
 template class DLL_PUBLIC std::shared_ptr<SArrayDouble>;
+#endif
 
 /** @defgroup sarrayptr_sub_mod The shared pointer array classes
  *  @ingroup SArray_typedefs_mod

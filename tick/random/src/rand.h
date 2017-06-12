@@ -9,7 +9,7 @@
 
 #include "array.h"
 
-#if defined _MSC_VER
+#if defined(_MSC_VER)
 template struct DLL_PUBLIC std::uniform_int<int>::param_type;
 template struct DLL_PUBLIC std::uniform_int<ulong>::param_type;
 template struct DLL_PUBLIC std::uniform_real<double>::param_type;

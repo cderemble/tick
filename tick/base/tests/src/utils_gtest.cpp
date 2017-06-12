@@ -20,17 +20,17 @@ struct MapFunctorsUnary {
   MapFunctorsUnary(std::size_t n)
       : data(n, 0) {}
 
-  unsigned long Set(unsigned long i) {
+  ulong Set(ulong i) {
     data[i] = i;
 
     return i;
   }
 
-  void Double(unsigned long i) {
+  void Double(ulong i) {
     data[i] *= 2;
   }
 
-  void Scale(unsigned long i, long alpha) {
+  void Scale(ulong i, long alpha) {
     data[i] *= alpha;
   }
 
@@ -118,14 +118,14 @@ TEST_P(ParallelTest, ReduceSumAdditive) {
 
 struct CalcFibo {
 
-  unsigned long Fibo(unsigned long n, unsigned long u0, unsigned long u1) {
-    unsigned long a, b;
+  ulong Fibo(ulong n, ulong u0, ulong u1) {
+    ulong a, b;
 
     a = u0;
     b = u1;
 
     while (n > 0) {
-      unsigned long temp = a + b;
+      ulong temp = a + b;
 
       a = b;
       b = temp;
@@ -136,7 +136,7 @@ struct CalcFibo {
     return a;
   }
 
-  unsigned long DoIt(unsigned long i) {
+  ulong DoIt(ulong i) {
     return Fibo(i, 0, 1);
   }
 
@@ -146,8 +146,8 @@ TEST_P(ParallelTest, MapFibo) {
   CalcFibo c{};
   auto result = parallel_map(GetParam(), 100, &CalcFibo::DoIt, &c);
 
-  std::vector<unsigned long> resultAsVector{result->data(), result->data() + result->size()};
-  std::vector<unsigned long> expected(resultAsVector.size(), 0);
+  std::vector<ulong> resultAsVector{result->data(), result->data() + result->size()};
+  std::vector<ulong> expected(resultAsVector.size(), 0);
 
   {
     std::size_t i = 0;
@@ -158,7 +158,7 @@ TEST_P(ParallelTest, MapFibo) {
 }
 
 struct ComplexFunctors {
-  std::complex<double> DoIt(unsigned long i) {
+  std::complex<double> DoIt(ulong i) {
     return std::proj(std::sqrt(std::cos(std::sin(std::complex<double>(0, 1)))))
         * std::exp(std::complex<double>(0.0, 1.0) * std::acos(-1));
   }
@@ -179,13 +179,13 @@ TEST_P(ParallelTest, MapComplex) {
 }
 
 struct ExceptionThrower {
-  void DoIt(unsigned long i) {
+  void DoIt(ulong i) {
     throw std::runtime_error("Example");
   }
 };
 
 struct ExceptionThrowerBadIndex {
-  void DoIt(unsigned long i, ArrayDouble &arrayDouble) {
+  void DoIt(ulong i, ArrayDouble &arrayDouble) {
     arrayDouble[i] += 1;
   }
 };
@@ -206,7 +206,7 @@ TEST_P(ParallelTest, ExceptionThrowBadIndex) {
 }
 
 struct SignalRaiser {
-  void DoIt(unsigned long i) {
+  void DoIt(ulong i) {
     if (!Interruption::is_raised())
       std::raise(SIGINT);
   }

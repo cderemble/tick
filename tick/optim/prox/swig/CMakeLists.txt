@@ -10,16 +10,11 @@ set(CMAKE_SWIG_FLAGS ${CMAKE_SWIG_FLAGS}
     "-I${CMAKE_CURRENT_SOURCE_DIR}/../../../base/swig"
     "-I${CMAKE_CURRENT_SOURCE_DIR}/../../../base/src"
     )
+
 add_definitions("-DBUILDING_DLL")
 
 swig_add_library(prox LANGUAGE python SOURCES prox_module.i TYPE SHARED)
 swig_link_libraries(prox ${PYTHON_LIBRARIES} ${NUMPY_LIB} ${array_target} ${base_target})
-
-target_include_directories(${SWIG_MODULE_prox_REAL_NAME} PRIVATE
-    "${CMAKE_CURRENT_SOURCE_DIR}/../../../base/array/src"
-    "${CMAKE_CURRENT_SOURCE_DIR}/../../../base/src"
-    "${CMAKE_CURRENT_SOURCE_DIR}/../src"
-    )
 
 target_sources(${SWIG_MODULE_prox_REAL_NAME} PRIVATE
     "${CMAKE_CURRENT_SOURCE_DIR}/../src/prox.cpp"

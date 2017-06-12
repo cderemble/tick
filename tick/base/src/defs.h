@@ -10,10 +10,6 @@
 
 #include <cstdint>
 
-#if defined _WIN32
-    #define _USE_MATH_DEFINES
-#endif
-
 #if defined _WIN32 || defined __CYGWIN__
     #ifdef BUILDING_DLL
         #ifdef __GNUC__
@@ -30,7 +26,6 @@
             #define DLL_PUBLIC __declspec(dllimport)
         #endif
     #endif
-    
     #define DLL_LOCAL
 #else
     #if __GNUC__ >= 4

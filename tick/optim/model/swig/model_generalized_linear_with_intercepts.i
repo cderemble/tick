@@ -9,5 +9,5 @@ class ModelGeneralizedLinearWithIntercepts : public ModelGeneralizedLinear {
                                        const SArrayDoublePtr labels,
                                        const int n_threads = 1);
 
-  unsigned long get_n_coeffs() const override;
+  ulong get_n_coeffs() const override;
 };

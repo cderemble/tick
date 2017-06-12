@@ -58,7 +58,9 @@ class DLL_PUBLIC Prox {
     ulong get_end();
 };
 
+#if defined(_MSC_VER)
 template class DLL_PUBLIC std::shared_ptr<Prox>;
+#endif
 
 typedef std::shared_ptr<Prox> ProxPtr;
 

@@ -9,7 +9,7 @@ class SGD : public StoSolver {
 
 public:
 
-    SGD(unsigned long epoch_size,
+    SGD(ulong epoch_size,
         double tol,
         RandType rand_type,
         double step,

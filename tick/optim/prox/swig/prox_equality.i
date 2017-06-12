@@ -11,8 +11,8 @@ public:
     ProxEquality(double strength, bool positive);
 
     ProxEquality(double strength,
-                 unsigned long start,
-                 unsigned long end,
+                 ulong start,
+                 ulong end,
                  bool positive);
 
     inline virtual void set_positive(bool positive);

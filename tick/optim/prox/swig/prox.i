@@ -10,8 +10,8 @@ public:
     Prox(double strength);
 
     Prox(double strength,
-         unsigned long start,
-         unsigned long end);
+         ulong start,
+         ulong end);
 
     virtual double value(ArrayDouble &coeffs);
 
@@ -27,8 +27,8 @@ public:
 
     inline virtual double get_strength() const;
 
-    inline virtual void set_start_end(unsigned long start,
-                                      unsigned long end);
+    inline virtual void set_start_end(ulong start,
+                                      ulong end);
 };
 
 typedef std::shared_ptr<Prox> ProxPtr;

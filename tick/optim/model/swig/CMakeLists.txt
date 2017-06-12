@@ -14,12 +14,6 @@ set(CMAKE_SWIG_FLAGS ${CMAKE_SWIG_FLAGS}
 swig_add_library(model LANGUAGE python SOURCES model_module.i TYPE SHARED)
 swig_link_libraries(model ${PYTHON_LIBRARIES} ${NUMPY_LIB} ${array_target} ${base_target} ${crandom_target})
 
-target_include_directories(${SWIG_MODULE_model_REAL_NAME} PRIVATE
-    "${CMAKE_CURRENT_SOURCE_DIR}/../../../base/array/src"
-    "${CMAKE_CURRENT_SOURCE_DIR}/../../../base/src"
-    "${CMAKE_CURRENT_SOURCE_DIR}/../src"
-    )
-
 target_sources(${SWIG_MODULE_model_REAL_NAME} PRIVATE
     "${CMAKE_CURRENT_SOURCE_DIR}/../src/model_labels_features.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/../src/model_generalized_linear.cpp"

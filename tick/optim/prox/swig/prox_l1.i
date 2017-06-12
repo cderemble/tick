@@ -10,7 +10,7 @@ public:
 
     ProxL1(double strength, bool positive);
 
-    ProxL1(double strength, unsigned long start, unsigned long end,
+    ProxL1(double strength, ulong start, ulong end,
            bool positive);
 
     inline virtual void set_positive(bool positive);

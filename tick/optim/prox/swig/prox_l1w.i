@@ -11,7 +11,7 @@ public:
             bool positive);
 
     ProxL1w(double strength, SArrayDoublePtr weights,
-            unsigned long start, unsigned long end,
+            ulong start, ulong end,
             bool positive);
 
     inline virtual void set_weights(SArrayDoublePtr weights);

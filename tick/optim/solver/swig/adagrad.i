@@ -9,7 +9,7 @@ class AdaGrad : public StoSolver {
 
 public:
 
-    AdaGrad(unsigned long epoch_size,
+    AdaGrad(ulong epoch_size,
         double tol,
         RandType rand_type,
         double step,

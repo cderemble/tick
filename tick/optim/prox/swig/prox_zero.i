@@ -10,6 +10,6 @@ public:
     ProxZero(double strength);
 
     ProxZero(double strength,
-             unsigned long start,
-             unsigned long end);
+             ulong start,
+             ulong end);
 };

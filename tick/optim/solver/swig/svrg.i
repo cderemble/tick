@@ -14,7 +14,7 @@ public:
         Random  = 3
     };
 
-    SVRG(unsigned long epoch_size,
+    SVRG(ulong epoch_size,
          double tol,
          RandType rand_type,
          double step,
