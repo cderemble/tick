@@ -18,6 +18,14 @@
  *                         backtrace and error loc
 */
 
+#if defined(__unix__)
+#include <unistd.h>
+#else
+#ifndef __PRETTY_FUNCTION__
+#define __PRETTY_FUNCTION__  __FUNCTION__
+#endif
+#endif
+
 #include <string>
 #include <iostream>
 #include <sstream>
@@ -102,7 +110,7 @@ struct LogExitCout {
 /**
  * Inserts filename, linenumber and function name into stream
  */
-#define TICK_LOG_PREFIX __FILE__ ":"  << __LINE__ << " in " << __FUNCTION__ << ": "
+#define TICK_LOG_PREFIX __FILE__ ":"  << __LINE__ << " in " << __PRETTY_FUNCTION__ << ": "
 
 /**
  * \defgroup error_mod Error management

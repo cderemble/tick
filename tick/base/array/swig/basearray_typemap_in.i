@@ -113,9 +113,9 @@
             PyErr_SetString(PyExc_ValueError,"Argument is not a list (it should be a list of BaseArrays)");
             return false;
         }
-        ssize_t nRows = PyList_Size((PyObject *) obj);
+        std::ssize_t nRows = PyList_Size((PyObject *) obj);
         list.resize(nRows);
-        for (ssize_t i=0;i<nRows;i++) {
+        for (std::ssize_t i=0;i<nRows;i++) {
             PyObject *obj_i = PyList_GetItem((PyObject *) obj,i);
             if (TypeCheckPyObj_##ARRAY_TYPE((PyObject *)obj_i)) {
                 if (!BuildFromPyObj_##ARRAY_TYPE(obj_i,(ARRAY_TYPE *) &(list[i])))
@@ -156,11 +156,11 @@
             PyErr_SetString(PyExc_ValueError,"Argument is not a list (it should be a 2d-list of BaseArrays)");
             return false;
         }
-        ssize_t nCols=0;
-        ssize_t nRows = PyList_Size((PyObject *) obj);
+        std::ssize_t nCols=0;
+        std::ssize_t nRows = PyList_Size((PyObject *) obj);
         list.resize(nRows);
         
-        for (ssize_t i=0;i<nRows;i++) {
+        for (std::ssize_t i=0;i<nRows;i++) {
 
             PyObject *obj_i = PyList_GetItem((PyObject *) obj,i);
             if (!PyList_Check(obj_i)) {
@@ -173,7 +173,7 @@
 //                return false;
 //            }
             list[i].resize(nCols);
-            for (ssize_t j=0;j<nCols;j++) {
+            for (std::ssize_t j=0;j<nCols;j++) {
                 PyObject *obj_ij = PyList_GetItem(obj_i,j);
                 if (TypeCheckPyObj_##ARRAY_TYPE((PyObject *)obj_ij)) {
                     if (!BuildFromPyObj_##ARRAY_TYPE(obj_ij,(ARRAY_TYPE *) &(list[i][j])))
@@ -215,9 +215,9 @@
             PyErr_SetString(PyExc_ValueError,"Argument is not a list of lists (it should be a list of BaseArray2d)");
             return false;
         }
-        ssize_t nRows = PyList_Size((PyObject *) obj);
+        std::ssize_t nRows = PyList_Size((PyObject *) obj);
         list.resize(nRows);
-        for (ssize_t i=0;i<nRows;i++) {
+        for (std::ssize_t i=0;i<nRows;i++) {
             PyObject *obj_i = PyList_GetItem((PyObject *) obj,i);
             if (TypeCheckPyObj_##ARRAY2D_TYPE((PyObject *)obj_i)) {
                 if (!BuildFromPyObj_##ARRAY2D_TYPE(obj_i,(ARRAY2D_TYPE *) &(list[i])))
@@ -258,11 +258,11 @@
             PyErr_SetString(PyExc_ValueError,"Argument is not a list (it should be a 2d-list of BaseArray2d)");
             return false;
         }
-        ssize_t nCols=0;
-        ssize_t nRows = PyList_Size((PyObject *) obj);
+        std::ssize_t nCols=0;
+        std::ssize_t nRows = PyList_Size((PyObject *) obj);
         list.resize(nRows);
         
-        for (ssize_t i=0;i<nRows;i++) {
+        for (std::ssize_t i=0;i<nRows;i++) {
             PyObject *obj_i = PyList_GetItem((PyObject *) obj,i);
             if (!PyList_Check(obj_i)) {
                 PyErr_SetString(PyExc_ValueError,"Argument is not a list of lists (it should be a 2d-list of BaseArray2d)");
@@ -274,7 +274,7 @@
 //                return false;
 //            }
             list[i].resize(nCols);
-            for (ssize_t j=0;j<nCols;j++) {
+            for (std::ssize_t j=0;j<nCols;j++) {
                 PyObject *obj_ij = PyList_GetItem(obj_i,j);
                 if (TypeCheckPyObj_##ARRAY2D_TYPE((PyObject *)obj_ij)) {
                     if (!BuildFromPyObj_##ARRAY2D_TYPE(obj_ij,(ARRAY2D_TYPE *) &(list[i][j])))

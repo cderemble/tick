@@ -249,7 +249,7 @@ Array<T>::Array(std::initializer_list<T> data_list)
     is_data_allocation_owned = true;
     _size = data_list.size();
     TICK_PYTHON_MALLOC(_data, T, _size);
-    size_t index = 0;
+    std::size_t index = 0;
     for (auto it = data_list.begin(); it != data_list.end(); ++it) {
         _data[index] = *it;
         index++;
