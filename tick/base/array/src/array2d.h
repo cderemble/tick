@@ -389,7 +389,6 @@ typedef std::vector<std::vector<Array2d<ulong> > > ArrayULong2dList2D;
  */
 template <typename E, typename T>
 tick::TemporaryLog<E>& operator<<(tick::TemporaryLog<E>& log, const Array2d<T>& arr) {
-    const auto size = arr.size();
     const auto n_cols = arr.n_cols();
     const auto n_rows = arr.n_rows();
 
@@ -400,10 +399,10 @@ tick::TemporaryLog<E>& operator<<(tick::TemporaryLog<E>& log, const Array2d<T>& 
     const ulong max_rows = 8;
     const ulong max_cols = max_rows;
 
-    for (auto r = 0; r < std::min(max_rows, n_rows); ++r) {
+    for (ulong r = 0; r < std::min(max_rows, n_rows); ++r) {
         log << "[";
 
-        for (auto c = 0; c < std::min(max_cols, n_cols); ++c) {
+        for (ulong c = 0; c < std::min(max_cols, n_cols); ++c) {
             log << arr.data()[r * n_cols + c] << ", ";
         }
 

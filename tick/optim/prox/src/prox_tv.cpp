@@ -45,14 +45,14 @@ void ProxTV::_call(ArrayDouble &coeffs,
     ArrayDouble sub_coeffs = view(coeffs, start, end);
     ArrayDouble sub_out = view(out, start, end);
 
-    const ulong width = sub_coeffs.size();
+    const std::int64_t width = static_cast<std::int64_t>(sub_coeffs.size());
     const double thresh = step * strength;
 
     if (width > 0) {                /*to avoid invalid memory access to input[0]*/
-        int k = 0, k0 = 0;            /*k: current sample location, k0: beginning of current segment*/
+        std::int64_t k = 0, k0 = 0;            /*k: current sample location, k0: beginning of current segment*/
         double umin = thresh, umax = -thresh;    /*u is the dual variable*/
         double vmin = sub_coeffs[0] - thresh, vmax = sub_coeffs[0] + thresh;    /*bounds for the segment's value*/
-        int kplus = 0, kminus = 0;    /*last positions where umax=-lambda, umin=lambda, respectively*/
+        std::int64_t kplus = 0, kminus = 0;    /*last positions where umax=-lambda, umin=lambda, respectively*/
         const double twolambda = 2.0 * thresh;    /*auxiliary variable*/
         const double minlambda = -thresh;        /*auxiliary variable*/
         for (;;) {                /*simple loop, the exit test is inside*/
