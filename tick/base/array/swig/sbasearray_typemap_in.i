@@ -105,9 +105,9 @@
             PyErr_SetString(PyExc_ValueError,"Argument is not a list (it should be a list of SBaseArray)");
             return false;
         }
-        std::ssize_t nRows = PyList_Size((PyObject *) obj);
+        ssize_t nRows = PyList_Size((PyObject *) obj);
         list.resize(nRows);
-        for (std::ssize_t i=0;i<nRows;i++) {
+        for (ssize_t i=0;i<nRows;i++) {
             PyObject *obj_i = PyList_GetItem((PyObject *) obj,i);
             if (TypeCheckPyObj_##ARRAY_TYPE((PyObject *)obj_i)) {
                 if (!BuildFromPyObj_##SARRAY_TYPE(obj_i,(SARRAYPTR_TYPE *) &(list[i])))
@@ -148,11 +148,11 @@
             PyErr_SetString(PyExc_ValueError,"Argument is not a list of lists (it should be a 2d-list of SBaseArrays)");
             return false;
         }
-        std::ssize_t nCols=0;
-        std::ssize_t nRows = PyList_Size((PyObject *) obj);
+        ssize_t nCols=0;
+        ssize_t nRows = PyList_Size((PyObject *) obj);
         list.resize(nRows);
         
-        for (std::ssize_t i=0;i<nRows;i++) {
+        for (ssize_t i=0;i<nRows;i++) {
             
             PyObject *obj_i = PyList_GetItem((PyObject *) obj,i);
             if (!PyList_Check(obj_i)) {
@@ -165,7 +165,7 @@
 //                return false;
 //            }
             list[i].resize(nCols);
-            for (std::ssize_t j=0;j<nCols;j++) {
+            for (ssize_t j=0;j<nCols;j++) {
                 PyObject *obj_ij = PyList_GetItem(obj_i,j);
                 if (TypeCheckPyObj_##ARRAY_TYPE((PyObject *)obj_ij)) {
                     if (!BuildFromPyObj_##SARRAY_TYPE(obj_ij,(SARRAYPTR_TYPE *) &(list[i][j])))
@@ -207,9 +207,9 @@
             PyErr_SetString(PyExc_ValueError,"Argument is not a list (it should be a list of SBaseArray2d)");
             return false;
         }
-        std::ssize_t nRows = PyList_Size((PyObject *) obj);
+        ssize_t nRows = PyList_Size((PyObject *) obj);
         list.resize(nRows);
-        for (std::ssize_t i=0;i<nRows;i++) {
+        for (ssize_t i=0;i<nRows;i++) {
             PyObject *obj_i = PyList_GetItem((PyObject *) obj,i);
             if (TypeCheckPyObj_##ARRAY2D_TYPE((PyObject *)obj_i)) {
                 if (!BuildFromPyObj_##SARRAY2D_TYPE(obj_i,(SARRAY2DPTR_TYPE *) &(list[i])))
@@ -250,11 +250,11 @@
             PyErr_SetString(PyExc_ValueError,"Argument is not a list of lists (it should be a 2d-list of SBaseArray2d)");
             return false;
         }
-        std::ssize_t nCols=0;
-        std::ssize_t nRows = PyList_Size((PyObject *) obj);
+        ssize_t nCols=0;
+        ssize_t nRows = PyList_Size((PyObject *) obj);
         list.resize(nRows);
         
-        for (std::ssize_t i=0;i<nRows;i++) {
+        for (ssize_t i=0;i<nRows;i++) {
             PyObject *obj_i = PyList_GetItem((PyObject *) obj,i);
             if (!PyList_Check(obj_i)) {
                 PyErr_SetString(PyExc_ValueError,"Argument is not a list of lists (it should be a 2d-list of SBaseArray2d)");
@@ -266,7 +266,7 @@
 //                return false;
 //            }
             list[i].resize(nCols);
-            for (std::ssize_t j=0;j<nCols;j++) {
+            for (ssize_t j=0;j<nCols;j++) {
                 PyObject *obj_ij = PyList_GetItem(obj_i,j);
                 if (TypeCheckPyObj_##ARRAY2D_TYPE((PyObject *)obj_ij)) {
                     if (!BuildFromPyObj_##SARRAY2D_TYPE(obj_ij,(SARRAY2DPTR_TYPE *) &(list[i][j])))
