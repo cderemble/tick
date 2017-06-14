@@ -32,7 +32,7 @@
     }
     %}
 %{
-    DLL_PUBLIC int TypeCheckPyObj_##SSPARSEARRAY2D_TYPE(PyObject *obj) {
+    DLL_PUBLIC int TypeCheckPyObj_##SSPARSEARRAY2D_TYPE(PyObject *) {
         return 1;
     }
     %}
@@ -66,7 +66,7 @@
     }
     %}
 %{
-    DLL_PUBLIC int TypeCheckPyObj_##SSPARSEARRAY_TYPE(PyObject *obj) {
+    DLL_PUBLIC int TypeCheckPyObj_##SSPARSEARRAY_TYPE(PyObject *) {
         return 1;
     }
     %}

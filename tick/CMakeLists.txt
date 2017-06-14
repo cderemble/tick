@@ -19,23 +19,24 @@ find_package(Backtrace QUIET)
 configure_file(backtrace.in ${CMAKE_CURRENT_SOURCE_DIR}/base/src/backtrace.h)
 
 if(MSVC)
-        add_definitions(-D_SCL_SECURE_NO_WARNINGS -wd4373 -wd4250)
-        add_definitions(-D_ITERATOR_DEBUG_LEVEL=0)
-        add_definitions(-D_USE_MATH_DEFINES)
+    add_definitions(-D_SCL_SECURE_NO_WARNINGS -wd4373 -wd4250)
+    add_definitions(-D_ITERATOR_DEBUG_LEVEL=0)
+    add_definitions(-D_USE_MATH_DEFINES)
+else()
+    add_definitions(-Wall)
 endif()
-add_definitions(-Wall)
 
 include_directories(
-        ${CMAKE_CURRENT_SOURCE_DIR}/base/src
-        ${CMAKE_CURRENT_SOURCE_DIR}/base/array/src
-        ${CMAKE_CURRENT_SOURCE_DIR}/base/array_test/src
-        ${CMAKE_CURRENT_SOURCE_DIR}/random/src
-        ${CMAKE_CURRENT_SOURCE_DIR}/simulation/src
-        ${CMAKE_CURRENT_SOURCE_DIR}/optim/model/src
-        ${CMAKE_CURRENT_SOURCE_DIR}/optim/prox/src
-        ${CMAKE_CURRENT_SOURCE_DIR}/optim/solver/src
-        ${CMAKE_CURRENT_SOURCE_DIR}/inference/src
-        ${CMAKE_CURRENT_SOURCE_DIR}/preprocessing/src
+    ${CMAKE_CURRENT_SOURCE_DIR}/base/src
+    ${CMAKE_CURRENT_SOURCE_DIR}/base/array/src
+    ${CMAKE_CURRENT_SOURCE_DIR}/base/array_test/src
+    ${CMAKE_CURRENT_SOURCE_DIR}/random/src
+    ${CMAKE_CURRENT_SOURCE_DIR}/simulation/src
+    ${CMAKE_CURRENT_SOURCE_DIR}/optim/model/src
+    ${CMAKE_CURRENT_SOURCE_DIR}/optim/prox/src
+    ${CMAKE_CURRENT_SOURCE_DIR}/optim/solver/src
+    ${CMAKE_CURRENT_SOURCE_DIR}/inference/src
+    ${CMAKE_CURRENT_SOURCE_DIR}/preprocessing/src
 )
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/third_party/cereal/include)
@@ -51,8 +52,7 @@ add_subdirectory(optim/solver/src)
 add_subdirectory(inference/src)
 add_subdirectory(preprocessing/src)
 
-set(EXTRA_LIBS ${EXTRA_LIBS} array base random array_test simulation model prox
-        solver inference)
+set(EXTRA_LIBS ${EXTRA_LIBS} array base random array_test simulation model prox solver inference)
 
 find_package(GTest)
 
@@ -92,7 +92,7 @@ endif()
 
 
 if(BUILD_SWIG)
-    add_definitions(-DPYTHON_LINK -DNPY_NO_DEPRECATED_API=NPY_1_7_API_VERSION)
+    add_definitions(-DPYTHON_LINK -DNPY_NO_DEPRECATED_API=NPY_1_7_API_VERSION -DNPY_INTERNAL_BUILD=0)
     add_definitions(-DSWIG_PYTHON_INTERPRETER_NO_DEBUG)
 
     find_package(SWIG REQUIRED)

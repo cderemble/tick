@@ -14,7 +14,7 @@
 DLL_PUBLIC PyObject *_XArray2NumpyArray(XARRAY_TYPE *sig)
 {
     npy_intp dims[1];
-    dims[0] = sig->size();
+    dims[0] = static_cast<npy_intp>(sig->size());
 
     PyArrayObject *array;
 
@@ -84,7 +84,7 @@ DLL_PUBLIC PyObject *_XArray2NumpyArray(XARRAY_TYPE *sig)
     DLL_PUBLIC PyObject *BuildPyListFromXArrayPtrList1D_##XARRAY_TYPE(XARRAYPTR_LIST1D_TYPE &list)
     {
         unsigned int i;
-        PyObject *result = PyList_New(list.size());
+        PyObject *result = PyList_New(static_cast<Py_ssize_t>(list.size()));
         PyObject *o;
         for (i = 0; i < list.size(); i++) {
             if (!(list[i])) {
@@ -118,7 +118,7 @@ DLL_PUBLIC PyObject *_XArray2NumpyArray(XARRAY_TYPE *sig)
 // The typemap out
 DLL_PUBLIC PyObject *BuildPyListFromXArrayPtrList2D_ ##XARRAY_TYPE(XARRAYPTR_LIST2D_TYPE &list)
 {
-    PyObject *result = PyList_New(list.size());
+    PyObject *result = PyList_New(static_cast<Py_ssize_t>(list.size()));
 
     for (unsigned int i = 0;i<list.size();i++) {
         PyObject *o = BuildPyListFromXArrayPtrList1D_##XARRAY_TYPE(list[i]);

@@ -510,6 +510,7 @@ CEREAL_LOAD_FUNCTION_NAME(Archive & ar, Array<T> & arr) {
 /////////////////////////////////////////////////////////////////
 
 #include <vector>
+#include "dot.h"
 
 /**
  * \defgroup Array_typedefs_mod Array related typedef
@@ -520,6 +521,10 @@ CEREAL_LOAD_FUNCTION_NAME(Archive & ar, Array<T> & arr) {
 /**
  * @}
  */
+
+#if defined(_MSC_VER)
+template class DLL_PUBLIC Array<double>;
+#endif
 
 /** @defgroup array_sub_mod The instantiations of the Array template
  *  @ingroup Array_typedefs_mod

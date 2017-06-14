@@ -18,8 +18,13 @@ swig_link_libraries(inference ${PYTHON_LIBRARIES} ${NUMPY_LIB} ${array_target} $
 
 target_sources(${SWIG_MODULE_inference_REAL_NAME} PRIVATE
     "${CMAKE_CURRENT_SOURCE_DIR}/../src/hawkes_conditional_law.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/../src/hawkes_em.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/../src/hawkes_adm4.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/../src/hawkes_basis_kernels.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/../src/hawkes_sumgaussians.cpp"
     )
+
+if(UNIX)
+    target_sources(${SWIG_MODULE_inference_REAL_NAME} PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/../src/hawkes_em.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/../src/hawkes_adm4.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/../src/hawkes_basis_kernels.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/../src/hawkes_sumgaussians.cpp"
+        )
+endif()

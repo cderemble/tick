@@ -115,8 +115,8 @@
 
         PyObject *obj_nrows = PyTuple_GET_ITEM(obj_shape,0);
         PyObject *obj_ncols = PyTuple_GET_ITEM(obj_shape,1);
-        *n_rows = PyLong_AsLong(obj_nrows);
-        *n_cols = PyLong_AsLong(obj_ncols);
+        *n_rows = PyLong_AsUnsignedLong(obj_nrows);
+        *n_cols = PyLong_AsUnsignedLong(obj_ncols);
 
         if (PyArray_TYPE(obj_data) != NP_TYPE || PyArray_ITEMSIZE(obj_data) != sizeof(C_TYPE))
         {
@@ -140,7 +140,7 @@
         }
         *row_indices = (INDICE_TYPE *) PyArray_DATA(obj_indptr);
 
-        *size_sparse = PyArray_DIM(obj_data,0);
+        *size_sparse = static_cast<ulong>(PyArray_DIM(obj_data,0));
 
         Py_DECREF(obj_indptr);Py_DECREF(obj_indices);Py_DECREF(obj_data);Py_DECREF(obj_shape);
         return true;
