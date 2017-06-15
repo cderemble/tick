@@ -25,7 +25,7 @@ class Test(unittest.TestCase):
                 np.min(np.abs(sample1 - samples2)), 1e-7)
         else:
             self.assertGreater(
-                np.max(np.abs(sample1 - samples2)), 0)
+                np.max(np.abs(sample1 - samples2)), 0.)
 
     def _test_dist_with_seed(self, seeded_sample, test_function, *args,
                              discrete=False):
