@@ -10,7 +10,7 @@
 
 %include hawkes_conditional_law.i
 
-#if defined(UNIX)
+#ifndef WIN32
 %{
 #include "base/hawkes_list.h"
 %}
