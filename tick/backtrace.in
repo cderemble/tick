@@ -1,4 +1,10 @@
+
+#ifndef TICK_BASE_SRC_BACKTRACE_H_
+#define TICK_BASE_SRC_BACKTRACE_H_
+
 #cmakedefine01 Backtrace_FOUND
 #if Backtrace_FOUND
-# include <${Backtrace_HEADER}>
+#include<${Backtrace_HEADER}>
 #endif
+
+#endif  // TICK_BASE_SRC_BACKTRACE_H_
