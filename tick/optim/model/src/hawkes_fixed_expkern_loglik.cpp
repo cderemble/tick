@@ -79,8 +79,8 @@ double ModelHawkesFixedExpKernLogLik::loss(const ArrayDouble &coeffs) {
 double ModelHawkesFixedExpKernLogLik::loss_i(const ulong sampled_i,
                                              const ArrayDouble &coeffs) {
   if (!weights_computed) compute_weights();
-  ulong i;
-  ulong k;
+  ulong i = 0;
+  ulong k = 0;
   sampled_i_to_index(sampled_i, &i, &k);
 
   return loss_i_k(i, k, coeffs);
@@ -101,8 +101,8 @@ void ModelHawkesFixedExpKernLogLik::grad_i(const ulong sampled_i,
                                            ArrayDouble &out) {
   if (!weights_computed) compute_weights();
 
-  ulong i;
-  ulong k;
+  ulong i = 0;
+  ulong k = 0;
   sampled_i_to_index(sampled_i, &i, &k);
 
   // set grad to zero
