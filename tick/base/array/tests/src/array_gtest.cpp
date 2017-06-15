@@ -65,7 +65,6 @@ ArrType GenerateRandomArray(ulong n = TICK_TEST_DATA_SIZE,
                             typename std::enable_if<std::is_floating_point<typename ArrType::value_type>::value>::type * = 0) {
   ArrType res(n);
 
-  using nl = std::numeric_limits<typename ArrType::value_type>;
   std::uniform_real_distribution<> dis(TICK_TEST_DATA_MIN_VALUE, TICK_TEST_DATA_MAX_VALUE);
 
   for (ulong i = 0; i < res.size(); ++i) res[i] = dis(gen);
@@ -79,7 +78,6 @@ ArrType GenerateRandomArray(ulong n = TICK_TEST_DATA_SIZE,
   ArrType res(n);
 
   using value_type = typename ArrType::value_type;
-  using nl = std::numeric_limits<value_type>;
   std::uniform_int_distribution<> dis(GetTestMinimum<value_type>(), TICK_TEST_DATA_MAX_VALUE);
 
   for (ulong i = 0; i < res.size(); ++i) res[i] = dis(gen);
@@ -242,7 +240,6 @@ TYPED_TEST(ArrayTest, Fill) {
 }
 
 TYPED_TEST(ArrayTest, Sum) {
-  using VT = typename TypeParam::value_type;
   TypeParam arrA = ::GenerateRandomArray<TypeParam>();
 
   const auto sum = std::accumulate(arrA.data(), arrA.data() + arrA.size(), 0.0);
@@ -289,7 +286,6 @@ TYPED_TEST(ArrayTest, DivOperator) {
 }
 
 TYPED_TEST(ArrayTest, NormSq) {
-  using VT = typename TypeParam::value_type;
   TypeParam arrA = ::GenerateRandomArray<TypeParam>();
 
   auto norm_sq = arrA.norm_sq();
