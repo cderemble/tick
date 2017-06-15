@@ -23,112 +23,112 @@
     \
     /******************************** TYPEMAP IN ********************************/ \
     /* ARRAY */ \
-    tick::promote_t<TYPE> test_typemap_in_##ARRAY_TYPE(ARRAY_TYPE & array) { \
-        return array.sum(); \
+    TYPE test_typemap_in_##ARRAY_TYPE(ARRAY_TYPE & array) { \
+        return static_cast<TYPE>(array.sum()); \
     }\
-    tick::promote_t<TYPE> test_typemap_in_##ARRAY2D_TYPE(ARRAY2D_TYPE & array2d) { \
-        return array2d.sum(); \
+    TYPE test_typemap_in_##ARRAY2D_TYPE(ARRAY2D_TYPE & array2d) { \
+        return static_cast<TYPE>(array2d.sum()); \
     }\
-    tick::promote_t<TYPE> test_typemap_in_##ARRAYLIST1D_TYPE(ARRAYLIST1D_TYPE & array_list) { \
-        return array_list[0].sum(); \
+    TYPE test_typemap_in_##ARRAYLIST1D_TYPE(ARRAYLIST1D_TYPE & array_list) { \
+        return static_cast<TYPE>(array_list[0].sum()); \
     }\
-    tick::promote_t<TYPE> test_typemap_in_##ARRAYLIST2D_TYPE(ARRAYLIST2D_TYPE & array_list_list) { \
-        return array_list_list[0][0].sum(); \
+    TYPE test_typemap_in_##ARRAYLIST2D_TYPE(ARRAYLIST2D_TYPE & array_list_list) { \
+        return static_cast<TYPE>(array_list_list[0][0].sum()); \
     }\
     \
     /* SPARSE ARRAY */ \
-    tick::promote_t<TYPE> test_typemap_in_##SPARSEARRAY_TYPE(SPARSEARRAY_TYPE & sparsearray) { \
-        return sparsearray.sum(); \
+    TYPE test_typemap_in_##SPARSEARRAY_TYPE(SPARSEARRAY_TYPE & sparsearray) { \
+        return static_cast<TYPE>(sparsearray.sum()); \
     }\
-    tick::promote_t<TYPE> test_typemap_in_##SPARSEARRAY2D_TYPE(SPARSEARRAY2D_TYPE & sparsearray2d) { \
-        return sparsearray2d.sum(); \
+    TYPE test_typemap_in_##SPARSEARRAY2D_TYPE(SPARSEARRAY2D_TYPE & sparsearray2d) { \
+        return static_cast<TYPE>(sparsearray2d.sum()); \
     }\
     \
     /* SHARED ARRAY POINTER */ \
-    tick::promote_t<TYPE> test_typemap_in_##SARRAYPTR_TYPE(SARRAYPTR_TYPE sarray) { \
-        return sarray->sum(); \
+    TYPE test_typemap_in_##SARRAYPTR_TYPE(SARRAYPTR_TYPE sarray) { \
+        return static_cast<TYPE>(sarray->sum()); \
     }\
-    tick::promote_t<TYPE> test_typemap_in_##SARRAY2DPTR_TYPE(SARRAY2DPTR_TYPE sarray2d) { \
-        return sarray2d->sum(); \
+    TYPE test_typemap_in_##SARRAY2DPTR_TYPE(SARRAY2DPTR_TYPE sarray2d) { \
+        return static_cast<TYPE>(sarray2d->sum()); \
     }\
-    tick::promote_t<TYPE> test_typemap_in_##SARRAYPTRLIST1D_TYPE(SARRAYPTRLIST1D_TYPE & sarray_list) { \
-        return sarray_list[0]->sum(); \
+    TYPE test_typemap_in_##SARRAYPTRLIST1D_TYPE(SARRAYPTRLIST1D_TYPE & sarray_list) { \
+        return static_cast<TYPE>(sarray_list[0]->sum()); \
     }\
-    tick::promote_t<TYPE> test_typemap_in_##SARRAYPTRLIST2D_TYPE(SARRAYPTRLIST2D_TYPE & sarray_list_list) { \
-        return sarray_list_list[0][0]->sum(); \
+    TYPE test_typemap_in_##SARRAYPTRLIST2D_TYPE(SARRAYPTRLIST2D_TYPE & sarray_list_list) { \
+        return static_cast<TYPE>(sarray_list_list[0][0]->sum()); \
     }\
-    tick::promote_t<TYPE> test_typemap_in_##SARRAY2DPTR_LIST1D_TYPE(SARRAY2DPTR_LIST1D_TYPE & sarray2d_list) { \
-        return sarray2d_list[0]->sum(); \
+    TYPE test_typemap_in_##SARRAY2DPTR_LIST1D_TYPE(SARRAY2DPTR_LIST1D_TYPE & sarray2d_list) { \
+        return static_cast<TYPE>(sarray2d_list[0]->sum()); \
     }\
-    tick::promote_t<TYPE> test_typemap_in_##SARRAY2DPTR_LIST2D_TYPE(SARRAY2DPTR_LIST2D_TYPE & sarray2d_list_list) { \
-        return sarray2d_list_list[0][0]->sum(); \
+    TYPE test_typemap_in_##SARRAY2DPTR_LIST2D_TYPE(SARRAY2DPTR_LIST2D_TYPE & sarray2d_list_list) { \
+        return static_cast<TYPE>(sarray2d_list_list[0][0]->sum()); \
     }\
     \
     /* VARIABLE ARRAY POINTER */ \
-    tick::promote_t<TYPE> test_typemap_in_##VARRAYPTR_TYPE(VARRAYPTR_TYPE varray) { \
-        return varray->sum(); \
+    TYPE test_typemap_in_##VARRAYPTR_TYPE(VARRAYPTR_TYPE varray) { \
+        return static_cast<TYPE>(varray->sum()); \
     }\
     \
-    tick::promote_t<TYPE> test_typemap_in_##VARRAYPTRLIST1D_TYPE(VARRAYPTRLIST1D_TYPE & varray_list) { \
-        return varray_list[0]->sum(); \
+    TYPE test_typemap_in_##VARRAYPTRLIST1D_TYPE(VARRAYPTRLIST1D_TYPE & varray_list) { \
+        return static_cast<TYPE>(varray_list[0]->sum()); \
     }\
     \
-    tick::promote_t<TYPE> test_typemap_in_##VARRAYPTRLIST2D_TYPE(VARRAYPTRLIST2D_TYPE & varray_list_list) { \
-        return varray_list_list[0][0]->sum(); \
+    TYPE test_typemap_in_##VARRAYPTRLIST2D_TYPE(VARRAYPTRLIST2D_TYPE & varray_list_list) { \
+        return static_cast<TYPE>(varray_list_list[0][0]->sum()); \
     }\
     \
     /* BASE ARRAY */ \
-    tick::promote_t<TYPE> test_typemap_in_##BASEARRAY_TYPE(BASEARRAY_TYPE & basearray) { \
-        return basearray.sum(); \
+    TYPE test_typemap_in_##BASEARRAY_TYPE(BASEARRAY_TYPE & basearray) { \
+        return static_cast<TYPE>(basearray.sum()); \
     }\
-    tick::promote_t<TYPE> test_typemap_in_##BASEARRAY2D_TYPE(BASEARRAY2D_TYPE & basearray2d) { \
-        return basearray2d.sum(); \
+    TYPE test_typemap_in_##BASEARRAY2D_TYPE(BASEARRAY2D_TYPE & basearray2d) { \
+        return static_cast<TYPE>(basearray2d.sum()); \
     }\
     \
     /* SPARSE ARRAY */ \
-    tick::promote_t<TYPE> test_typemap_in_##SSPARSEARRAYPTR_TYPE(SSPARSEARRAYPTR_TYPE ssparsearray) { \
-        return ssparsearray->sum(); \
+    TYPE test_typemap_in_##SSPARSEARRAYPTR_TYPE(SSPARSEARRAYPTR_TYPE ssparsearray) { \
+        return static_cast<TYPE>(ssparsearray->sum()); \
     }\
     \
-    tick::promote_t<TYPE> test_typemap_in_##SSPARSEARRAY2DPTR_TYPE(SSPARSEARRAY2DPTR_TYPE ssparsearray2d) { \
-        return ssparsearray2d->sum(); \
+    TYPE test_typemap_in_##SSPARSEARRAY2DPTR_TYPE(SSPARSEARRAY2DPTR_TYPE ssparsearray2d) { \
+        return static_cast<TYPE>(ssparsearray2d->sum()); \
     }\
     \
     /* BASE ARRAY SHARED POINTER */ \
-    tick::promote_t<TYPE> test_typemap_in_##SBASEARRAYPTR_TYPE(SBASEARRAYPTR_TYPE sbasearray) { \
-        return sbasearray->sum(); \
+    TYPE test_typemap_in_##SBASEARRAYPTR_TYPE(SBASEARRAYPTR_TYPE sbasearray) { \
+        return static_cast<TYPE>(sbasearray->sum()); \
     }\
     \
-    tick::promote_t<TYPE> test_typemap_in_##SBASEARRAY2DPTR_TYPE(SBASEARRAY2DPTR_TYPE sbasearray2d) { \
-        return sbasearray2d->sum(); \
+    TYPE test_typemap_in_##SBASEARRAY2DPTR_TYPE(SBASEARRAY2DPTR_TYPE sbasearray2d) { \
+        return static_cast<TYPE>(sbasearray2d->sum()); \
     }\
     \
     /* BASE ARRAY LIST */ \
-    tick::promote_t<TYPE> test_typemap_in_##BASEARRAY_LIST1D_TYPE(BASEARRAY_LIST1D_TYPE & basearray_list) { \
-        return basearray_list[0].sum(); \
+    TYPE test_typemap_in_##BASEARRAY_LIST1D_TYPE(BASEARRAY_LIST1D_TYPE & basearray_list) { \
+        return static_cast<TYPE>(basearray_list[0].sum()); \
     }\
-    tick::promote_t<TYPE> test_typemap_in_##BASEARRAY_LIST2D_TYPE(BASEARRAY_LIST2D_TYPE & basearray_list_list) { \
-        return basearray_list_list[0][0].sum(); \
+    TYPE test_typemap_in_##BASEARRAY_LIST2D_TYPE(BASEARRAY_LIST2D_TYPE & basearray_list_list) { \
+        return static_cast<TYPE>(basearray_list_list[0][0].sum()); \
     }\
-    tick::promote_t<TYPE> test_typemap_in_##BASEARRAY2D_LIST1D_TYPE(BASEARRAY2D_LIST1D_TYPE & basearray2d_list) { \
-        return basearray2d_list[0].sum(); \
+    TYPE test_typemap_in_##BASEARRAY2D_LIST1D_TYPE(BASEARRAY2D_LIST1D_TYPE & basearray2d_list) { \
+        return static_cast<TYPE>(basearray2d_list[0].sum()); \
     }\
-    tick::promote_t<TYPE> test_typemap_in_##BASEARRAY2D_LIST2D_TYPE(BASEARRAY2D_LIST2D_TYPE & basearray2d_list_list) { \
-        return basearray2d_list_list[0][0].sum(); \
+    TYPE test_typemap_in_##BASEARRAY2D_LIST2D_TYPE(BASEARRAY2D_LIST2D_TYPE & basearray2d_list_list) { \
+        return static_cast<TYPE>(basearray2d_list_list[0][0].sum()); \
     }\
     \
     /* BASE ARRAY SHARED POINTER LIST */ \
-    tick::promote_t<TYPE> test_typemap_in_##SBASEARRAYPTR_LIST1D_TYPE(SBASEARRAYPTR_LIST1D_TYPE & sbasearray_list) { \
-        return sbasearray_list[0]->sum(); \
+    TYPE test_typemap_in_##SBASEARRAYPTR_LIST1D_TYPE(SBASEARRAYPTR_LIST1D_TYPE & sbasearray_list) { \
+        return static_cast<TYPE>(sbasearray_list[0]->sum()); \
     }\
-    tick::promote_t<TYPE> test_typemap_in_##SBASEARRAYPTR_LIST2D_TYPE(SBASEARRAYPTR_LIST2D_TYPE & sbasearray_list_list) { \
-        return sbasearray_list_list[0][0]->sum(); \
+    TYPE test_typemap_in_##SBASEARRAYPTR_LIST2D_TYPE(SBASEARRAYPTR_LIST2D_TYPE & sbasearray_list_list) { \
+        return static_cast<TYPE>(sbasearray_list_list[0][0]->sum()); \
     }\
-    tick::promote_t<TYPE> test_typemap_in_##SBASEARRAY2DPTR_LIST1D_TYPE(SBASEARRAY2DPTR_LIST1D_TYPE & sbasearray2d_list) { \
-        return sbasearray2d_list[0]->sum(); \
+    TYPE test_typemap_in_##SBASEARRAY2DPTR_LIST1D_TYPE(SBASEARRAY2DPTR_LIST1D_TYPE & sbasearray2d_list) { \
+        return static_cast<TYPE>(sbasearray2d_list[0]->sum()); \
     }\
-    tick::promote_t<TYPE> test_typemap_in_##SBASEARRAY2DPTR_LIST2D_TYPE(SBASEARRAY2DPTR_LIST2D_TYPE & sbasearray2d_list_list) { \
-        return sbasearray2d_list_list[0][0]->sum(); \
+    TYPE test_typemap_in_##SBASEARRAY2DPTR_LIST2D_TYPE(SBASEARRAY2DPTR_LIST2D_TYPE & sbasearray2d_list_list) { \
+        return static_cast<TYPE>(sbasearray2d_list_list[0][0]->sum()); \
     }\
     \
     \
