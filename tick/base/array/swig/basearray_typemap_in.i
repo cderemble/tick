@@ -168,7 +168,7 @@
                 PyErr_SetString(PyExc_ValueError,"Argument is not a list of lists (it should be a 2d-list of BaseArrays)");
                 return false;
             }
-            nCols = PyList_Size(obj_i))
+            nCols = PyList_Size(obj_i);
 //            else if (nCols != PyList_Size(obj_i)) {
 //                PyErr_SetString(PyExc_ValueError,"Failed converting argument to 2d-list of BaseArrays");
 //                return false;
